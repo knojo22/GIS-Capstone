@@ -13,7 +13,6 @@ h3 {
   font-size: 12px;
   padding-top: 10px;
   width: 800px;
-  height: 50px;
   text-transform: uppercase;
   font-family:"Times New Roman", Helvetica, sans-serif;
   background-color: #bdbdbd;
@@ -25,13 +24,34 @@ body{
 }
 
 #mapid {
-  height: 600px;
-  width: 90%;
-  display: inline-block;
-  padding: 40px;
+  height: 450px;
+  width: 40%;
+  top: 20px;
+  display: inline-flex;
+  padding: 20px;
 }
 
-.sequence-control-container{
+#modechoice_menu{
+  position: absolute;
+  top: 130px;
+  left: 100px;
+  z-index: 9000;
+  font-family:"Times New Roman", Helvetica, sans-serif;
+  border: 1px solid #999;
+  box-shadow: 2px 2px 4px #999;
+}
+
+#foodmarket_menu{
+  position: absolute;
+  top: 130px;
+  left: 305px;
+  z-index: 9000;
+  font-family:"Times New Roman", Helvetica, sans-serif;
+  border: 1px solid #999;
+  box-shadow: 2px 2px 4px #999;
+}
+
+/*.sequence-control-container{
   width: 300px;
   height: 30px;
   background-color: rgba(255,255,255,0.8);
@@ -44,21 +64,21 @@ body{
 
 .range-slider{
   width: 150px;
-}
+}*/
 
 /* Forward icon created by Futishia from the Noun Project */
-#forward {
+/*#forward {
   float: right;
   background-color: white;
   border-radius: 5px;
-}
+}*/
 /* Reverse icon created by Futishia from the Noun Project */
-
+/*
 #reverse {
   float: left;
   background-color: white;
   border-radius: 5px;
-}
+}*/
 
 .legend-control-container{
   width: 225px;
@@ -74,7 +94,7 @@ body{
   border-radius: 10px;
 }
 
-#all{
+/*#all{
   background-color: blue;
   width: 100px;
   color: white;
@@ -84,7 +104,7 @@ body{
   border-radius: 5px;
 }
 
-#ten{
+#walk{
   width: 100px;
   font-family:"Times New Roman", Helvetica, sans-serif;
   font-weight: bold;
@@ -93,7 +113,7 @@ body{
   border-radius: 5px;
 }
 
-#fifteen{
+#bike{
   width: 100px;
   font-family:"Times New Roman", Helvetica, sans-serif;
   font-weight: bold;
@@ -102,26 +122,17 @@ body{
   border-radius: 5px;
 }
 
-#twenty{
-  width: 100px;
+#publictransit{
+  width: 145px;
   font-family:"Times New Roman", Helvetica, sans-serif;
   font-weight: bold;
   background-color: white;
   border: solid black 2px;
-  border-radius: 5px;
+  border-radius: 5px;*/
 }
-
-#twentyplus{
-  width: 100px;
-  font-family:"Times New Roman", Helvetica, sans-serif;
-  font-weight: bold;
-  background-color: white;
-  border: solid black 2px;
-  border-radius: 5px;
-}
-
+/*
 .leaflet-popup-content p {
   margin: 0.2em 0;
   font-family: "Times New Roman", Helvetica, sans-serif;
   text-transform: uppercase;
-}
+}*/

@@ -4,33 +4,44 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
 		<link rel="shortcut icon" href="">
-		<title> GEOG 575 Leaflet Module </title>
-
+		<title> GIS Capstone Project </title>
 		<!--put your external stylesheet links here-->
 		<link rel="stylesheet" href="css/leaflet.css" />
 		<link rel="stylesheet" href="css/style.css">
-		<!--[if IE<9]>
-			<link rel="stylesheet" href="css/style.ie.css">
-		<![endif]-->
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
 	</head>
-		<h1>Percentage of Work Commuters using Public Transportation in Seattle, WA (2011-2015)</h1>
-		<h3><p>The purpose of the interactive map is to compare census tracts in Seattle, WA based on the
-			percentage of total workers that use public transportation as the primary mode choice for work commutes from
-			2011 to 2015.</p></h3>
+		<h1>Food Desert Analysis by Alternative Transportation Mode Choices</h1>
+		<h3><p>The purpose of the interactive map is to compare food desert areas by different mode choices
+			(Walk, Bicycle, Public Transportation) for different cities across the United States.</p></h3>
 		<!-- Source: ACS 2015 5 Year Estimates Means of Transportation to Work By Age (B08101) -->
 	<body>
-		<div class="btn-group">
-			<button type="button" id="all" class="btn btn-success">All</button>
-			<button type="button" id="ten" class="btn btn-primary">5-10%</button>
-			<button type="button" id="fifteen" class="btn btn-primary">10-15%</button>
-			<button type="button" id="twenty" class="btn btn-primary">15-20%</button>
-			<button type="button" id="twentyplus" class="btn btn-primary">20%+</button>
-	</div>
+		</div>
 		<div id="mapid"></div>
-		<div id="panel"></div>
-		<script type="text/javascript" src="lib/jquery-3.1.1.min.js"></script>
+		<div id='modechoice_menu'>
+			<select id='modechoice'>
+				<option value='All'>Transportation Mode Choices</option>
+				<option value='Grocery Store'>Walk</option>
+				<option value='Supermarket'>Bicycle</option>
+				<option value='Hypermarket'>Public Transportation</option>
+			</select>
+		</div>
+		<div id='foodmarket_menu'>
+			<select id='foodmarket'>
+				<option value='All Food Retail Markets'>Food Retail Markets</option>
+				<option value='Grocery Store'>Grocery Stores</option>
+				<option value='Supermarket'>Supermarkets</option>
+				<option value='Hypermarket'>Hypermarket</option>
+			</select>
+		</div>
+
+		<script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+		<script type="text/javascript" src="lib/d3.min.js"></script>
 		<script type="text/javascript" src="lib/leaflet-src.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="lib/leaflet-groupedlayercontrol.js"></script>
+		<script type="text/javascript" src="lib/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/mainChicago.js"></script>
+		<!-- <script type="text/javascript" src="js/mainSeattle.js"></script>
+		<script type="text/javascript" src="js/mainBoston.js"></script> -->
 		<!-- <script type="text/javascript" src="js/main.js"></script> -->
 	</body>
 </html>

@@ -1,39 +1,32 @@
+
+
+
+
 function initialize(){
 	createMap();
-};
+	loadlayer();
 
+};
+var map ;
 // Creating a function to instantiate the map with Leaflet
 function createMap(){
-	var map = L.map('mapid', {
+	map= L.map('mapid', {
 		center: [41.8781,-87.6298],
 		zoom: 10
-		// layers: [grayscale, markets]
 	});
 
 	L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 		          attribution: 'CARTO'
 		        }).addTo(map);
 
-	var censustracts = getCensusTracts(map);
-  var markets = getSNAPData(map);
-	var rail = getRailLines(map);
-	var bike = getBikeRoutes(map);
-	// var walking = getRoadways(map);
-	var busbuffer = getBusBuffer(map);
-	// var bus = getBusRoutes(map);
+// 	var basemap ={
+//
+// };
+// 	// var overlays ={
+//
+// };
 
-
-
-	// var basemap = {
-	// 		"Grayscale": grayscale,
-	// 		"Darkscale": darkscale
-	// 	};
-	//
-	// var overlayMaps = {
-	// 	"Markets": markets
-	// };
-	//
-	// L.control.layers(basemap, overlayMaps).addTo(map);
+	// L.control.layers(basemap, overlays).addTo(map);
 	//
 	// // var layers =
 
@@ -43,6 +36,58 @@ function createMap(){
 		// Calling the getData function to operate
 
 		// getRailLines(map);
+};
+
+
+function changeTransportation(){
+
+	//alert("change transportaiton");
+
+	var e = document.getElementById("modechoice");
+	var transportationmode = e.options[e.selectedIndex].value;
+
+	//alert(transportationmode);
+
+	// console.log(transportationmode);
+	if(transportationmode == "Walk"){
+		// var walk = getRoadways(map);
+		var remove = $("div").remove(".modechoice");
+		console.log("working?");
+	} else if (transportationmode =="Bicycle"){
+		var remove = $("div").remove(".modechoice");
+		var bicycle = getBikeRoutes(map);
+	} else if (transportationmode == "Rail"){
+		var remove = $("div").remove(".modechoice");
+		var rail = getRailLines(map);
+		var railbuffer = getRailBuffer(map);
+	} else {
+		var remove = $("div").remove(".modechoice");
+		var bus = getBusRoutes(map);
+		var busbuffer = getBusBuffer(map);
+	}
+
+};
+
+function changeMarket(){
+	var e = document.getElementById("foodmarket");
+	var foodmarket = e.options[e.selectedIndex].value;
+
+	if (foodmarket == "Grocery Store"){
+			var markets = getSNAPData(map);
+	}
+
+	//
+}
+function loadlayer(){
+
+// load transportation layer
+changeTransportation();
+changeMarket();
+
+//var censustracts = getCensusTracts(map);
+
+//var busbuffer = getBusBuffer(map);
+//
 };
 
 function getCensusTracts(map){
@@ -56,8 +101,10 @@ function getCensusTracts(map){
 };
 
 function getCTColor(d){
-	return d > 0 ? "#3182bd":
-				 d < 0 ? "#de2d26":
+	return d >= 3.65 ? "#ca0020":
+				 d >= 0.71 && d < 3.65 ? "#f4a582":
+				 d >= -0.91 && d < 0.71 ? "#92c5de":
+				 d < -0.91 ? "#0571b0":
 				 				 "#969696";
 };
 
@@ -171,38 +218,67 @@ function getBikeRoutes(map){
 };
 
 //Loading the Roadways
-// function getRoadways(map){
-// 	$.ajax("data/Chicago_Roadways.geojson",
-// 		{dataType: "json",
-// 		success: function(response){
-// 				console.log(response);
-// 				createLineSymbols2(response, map);
-// 		}
-// 	});
-// };
-//
-// function getRoadwayColor(x){
-// 	return x == "1" ? "#3182bd":
-// 				 x == "2" ? "#de2d26":
-// 				 x == "3" ? "#31a354":
-// 				 x == "4" ? "#993404":
-// 				 						 "#969696";
-// };
-//
-// //Creating the line symbols based upon the rail lines.
-// function createLineSymbols2(data, map){
-// 	var attribute = "class"
-//
-// 	L.geoJson(data, {
-// 		style: function(feature){
-// 			var attValue = feature.properties[attribute];
-// 			return {
-// 			"color": getRoadwayColor(feature.properties[attribute]),
-// 			"opacity": 0.8,
-// 			}
-// 		}
-// 	}).addTo(map);
-// };
+function getRoadways(map){
+	$.ajax("data/Chicago_Roadways.geojson",
+		{dataType: "json",
+		success: function(response){
+				console.log(response);
+				createLineSymbols2(response, map);
+		}
+	});
+};
+
+function getRoadwayColor(x){
+	return x == "1" ? "#3182bd":
+				 x == "2" ? "#de2d26":
+				 x == "3" ? "#31a354":
+				 x == "4" ? "#993404":
+				 						 "#969696";
+};
+
+//Creating the line symbols based upon the rail lines.
+function createLineSymbols2(data, map){
+	var attribute = "class"
+
+	L.geoJson(data, {
+		style: function(feature){
+			var attValue = feature.properties[attribute];
+			return {
+			"color": getRoadwayColor(feature.properties[attribute]),
+			"opacity": 0.8,
+			}
+		}
+	}).addTo(map);
+};
+
+
+
+function getRailBuffer(map){
+	$.ajax("data/Chicago_RailBuffer.geojson",{
+		dataType: "json",
+		success: function(response){
+			L.geoJson(response).addTo(map);
+		}
+	});
+}
+
+function getBusRoutes(map){
+	var busStyle = {
+		"color": "#969696",
+		"weight": 2,
+		"opacity": 2,
+	};
+
+	$.ajax("data/Chicago_BusRoutes1.geojson", {
+		dataType: "json",
+		success : function(response){
+			console.log(response);
+			L.geoJson(response, {
+				style: busStyle
+			}).addTo(map);
+		}
+	});
+};
 
 function getBusBuffer(map){
 	$.ajax("data/Chicago_BusBuffer.geojson", {
@@ -213,30 +289,6 @@ function getBusBuffer(map){
 		}
 	});
 };
-
-// function getRailBuffer(map){
-// 	$.ajax("data/Chicago_")
-// }
-
-// function getBusRoutes(map){
-// 	var busStyle = {
-// 		"color": "#969696",
-// 		"weight": 2,
-// 		"opacity": 2,
-// 	};
-//
-// 	$.ajax("data/Chicago_BusRoutes.geojson", {
-// 		dataType: "json",
-// 		success : function(response){
-// 			console.log(response);
-// 			L.geoJson(response, {
-// 				style: busStyle
-// 			}).addTo(map);
-// 		}
-// 	});
-// };
-
-
 
 // function getCensusTracts(map){
 // 	$.ajax("data/Chicago_CT.geojson",

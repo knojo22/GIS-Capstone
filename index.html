@@ -18,15 +18,16 @@
 		</div>
 		<div id="mapid"></div>
 		<div id='modechoice_menu'>
-			<select id='modechoice'>
+			<select id='modechoice' onChange="changeTransportation()">
 				<option value='All'>Transportation Mode Choices</option>
-				<option value='Grocery Store'>Walk</option>
-				<option value='Supermarket'>Bicycle</option>
-				<option value='Hypermarket'>Public Transportation</option>
+				<option value='Walk'>Walk</option>
+				<option value='Bicycle'>Bicycle</option>
+				<option value='Rail'>Rail</option>
+				<option value='Bus'>Bus</option>
 			</select>
 		</div>
 		<div id='foodmarket_menu'>
-			<select id='foodmarket'>
+			<select id='foodmarket' onChange = "changeMarket()">
 				<option value='All Food Retail Markets'>Food Retail Markets</option>
 				<option value='Grocery Store'>Grocery Stores</option>
 				<option value='Supermarket'>Supermarkets</option>
@@ -37,7 +38,7 @@
 		<script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
 		<script type="text/javascript" src="lib/d3.min.js"></script>
 		<script type="text/javascript" src="lib/leaflet-src.js"></script>
-		<script type="text/javascript" src="lib/leaflet-groupedlayercontrol.js"></script>
+		<!-- <script type="text/javascript" src="lib/leaflet-groupedlayercontrol.js"></script> -->
 		<script type="text/javascript" src="lib/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript" src="js/mainChicago.js"></script>
 		<!-- <script type="text/javascript" src="js/mainSeattle.js"></script>

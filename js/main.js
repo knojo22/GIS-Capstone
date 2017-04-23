@@ -298,7 +298,7 @@ function getSNAP(map, n){
 			success: function(response){
 				var attributes = processData(response);
 				createSymbols(response, map, attributes);
-				changeMarket();
+				// changeMarket();
 				// function that selects market based on changeMarket(map, attributes);
 				}
 			});
@@ -308,7 +308,7 @@ function getSNAP(map, n){
 				success: function(response){
 					var attributes = processData(response);
 					createSymbols(response, map, attributes);
-					changeMarket();
+					// changeMarket();
 					// function that selects market based on changeMarket(map, attributes);
 					}
 				});
@@ -318,7 +318,7 @@ function getSNAP(map, n){
 			success: function(response){
 				var attributes = processData(response);
 				createSymbols(response, map, attributes);
-				changeMarket();
+				// changeMarket();
 				// function that selects market based on changeMarket(map, attributes);
 				}
 			});

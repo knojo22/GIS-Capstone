@@ -1,2 +1,2 @@
-# leaflet-lab
+# GIS-Capstone
 GIS Capstone Project

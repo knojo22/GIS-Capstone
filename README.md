@@ -1,2 +1,2 @@
 # leaflet-lab
-Leaflet Lab for GEOG 575
+GIS Capstone Project

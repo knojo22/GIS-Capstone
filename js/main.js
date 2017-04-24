@@ -69,8 +69,6 @@ function createMap(){
 		          attribution: 'CARTO'
 		        }).addTo(map3);
 
-
-
 	getCTs(map1, 1);
 	getCTs(map2, 2);
 	getCTs(map3, 3);
@@ -78,9 +76,9 @@ function createMap(){
 
 // Loading the transportation and food market layers into each of the maps
 function loadlayer(){
-	// getSNAP(map1, 1);
-	// getSNAP(map2, 2);
-	// getSNAP(map3, 3);
+	getSNAP(map1, 1);
+	getSNAP(map2, 2);
+	getSNAP(map3, 3);
 	// getwalkBuffer(map1, 1);
 	// getWalkBuffer(map2, 2);
 	// getWalkBuffer(map3, 3);
@@ -298,7 +296,7 @@ function getSNAP(map, n){
 			success: function(response){
 				var attributes = processData(response);
 				createSymbols(response, map, attributes);
-				// changeMarket();
+				changeMarket();
 				// function that selects market based on changeMarket(map, attributes);
 				}
 			});
@@ -308,7 +306,7 @@ function getSNAP(map, n){
 				success: function(response){
 					var attributes = processData(response);
 					createSymbols(response, map, attributes);
-					// changeMarket();
+					changeMarket();
 					// function that selects market based on changeMarket(map, attributes);
 					}
 				});
@@ -318,7 +316,7 @@ function getSNAP(map, n){
 			success: function(response){
 				var attributes = processData(response);
 				createSymbols(response, map, attributes);
-				// changeMarket();
+				changeMarket();
 				// function that selects market based on changeMarket(map, attributes);
 				}
 			});
@@ -373,6 +371,15 @@ function getSNAP(map, n){
 				return pointToLayer(feature, latlng, attributes);
 			}
 		});
+
+		// var othermarket = L.geoJson(data, {
+		// 	filter: function(featuture, layer){
+		// 		return feature.properties.Type != "Hypermarket";
+		// 	},
+		// 	pointToLayer: function(feature, latlng){
+		// 			return pointToLayer(feature, latlng, attributes);
+		// 		}
+		// 	});
 
 		// var markets = L.layerGroup([grocery, supermarket, hypermarket]).addTo(map);
 
@@ -463,15 +470,15 @@ food market type */
 						fillOpacity: 0.4
 					});
 					return HMLayer;
-				/* } else if (attrValue == "Other Markets"){
+				  } else {
 					var OMLayer = L.circleMarker(latlng, {
-					radius: 8,
+					radius: 2,
 					fillColor: "#b2df8a",
 					weight: 1,
 					opacity: 1,
 					fillOpacity: 0.4
 				});
-				return OMLayer; */
+				return OMLayer;
 				};
 		};
 };

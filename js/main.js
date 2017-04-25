@@ -1,8 +1,22 @@
-var current = ""
+var WalkSeattle;
+var WalkChicago;
+var WalkBoston;
+var BikeSeattle;
+var BikeChicago;
+var BikeBoston;
+var RailSeattle;
+var RailChicago;
+var RailBoston;
+var BusChicago;
+var BusSeattle;
+var BusBoston;
+var GSLayer;
+var SMLayer;
+var HMLayer;
 
 function initialize(){
 	createMap();
-	loadlayer();
+	updateLayers();
 };
 
 var map1;
@@ -75,10 +89,10 @@ function createMap(){
 };
 
 // Loading the transportation and food market layers into each of the maps
-function loadlayer(){
-	getSNAP(map1, 1);
-	getSNAP(map2, 2);
-	getSNAP(map3, 3);
+function updateLayers(){
+	// getSNAP(map1, 1);
+	// getSNAP(map2, 2);
+	// getSNAP(map3, 3);
 	// getwalkBuffer(map1, 1);
 	// getWalkBuffer(map2, 2);
 	// getWalkBuffer(map3, 3);
@@ -99,6 +113,7 @@ function loadlayer(){
 };
 
 
+
 /* Creating a function that would add/remove layers from different mode choice ajax requests*/
 function changeTransportation(){
 	var e = document.getElementById("modechoice");
@@ -106,7 +121,13 @@ function changeTransportation(){
 
 	// console.log(transportationmode);
 	if (transportationmode == "Walk"){
-		var WalkSeattle = getWalkBuffer(map1, 1);
+		getWalkBuffer(map1, 1); //  initialize WalkSeattle
+		getWalkBuffer(map2, 2);
+		getWalkBuffer(map3, 3);
+
+		map1.addLayer(WalkSeattle);
+
+		// var WalkSeattle = getWalkBuffer(map1, 1);
 		var WalkChicago = getWalkBuffer(map2, 2);
 		// var WalkBoston = getWalkBuffer(map3, 3);
 	//	walkBufferSeattle  = getWalkBufferSeattle(map1);
@@ -114,9 +135,17 @@ function changeTransportation(){
 	//  toggleLayer(map2, walkChicago, toggleWalk);
 		// var walkBufferBoston = getWalkBufferBoston(map3);
 	} else if (transportationmode =="Bicycle"){
-		var BikeSeattle = getBike(map1, 1);
-		var BikeChicago = getBike(map2, 2);
-		var BikeBoston = getBike(map3, 3)
+		// map1.removeLayer(WalkSeattle);
+		// map2.removeLayer(WalkChicago);
+		getBike(map1, 1);
+		getBike(map2, 2);
+		getBike(map3, 3);
+		map1.addLayer(BikeSeattle);
+		map2.addLayer(BikeChicago);
+		map3.addLayer(BikeBoston);
+
+		// var BikeChicago = getBike(map2, 2);
+		// var BikeBoston = getBike(map3, 3)
 		// toggleLayer(map1, walkSeattle, toggleWalk);
 		// toggleLayer(map2, walkChicago, toggleWalk);
 	} else if (transportationmode == "Rail"){
@@ -134,11 +163,24 @@ function changeTransportation(){
 depending on the selected value from the dropdown menu for food markets */
 function changeMarket(){
 	var e = document.getElementById("foodmarket");
-	// console.log(e)
 	var foodmarket = e.options[e.selectedIndex].value;
 
 	if (foodmarket == "Grocery Store"){
-		alert("Whoo?");
+		getSNAP(map1, 1);
+		getSNAP(map2, 2);
+		getSNAP(map3, 3);
+		map1.removeLayer(SMLayer);
+		map2.removeLayer(SMLayer);
+		map3.removeLayer(SMLayer);
+		map1.removeLayer(HMLayer);
+		map2.removeLayer(HMLayer);
+		map3.removeLayer(HMLayer);
+		map1.removeLayer(OMLayer);
+		map2.removeLayer(OMLayer);
+		map3.removeLayer(OMLayer);
+
+		// add layers
+		// remove layers
 		/* if (other retail markets layers exist)
 		{removes other food market layers}
 			else {
@@ -146,7 +188,8 @@ function changeMarket(){
 		} */
 	} else if (foodmarket == "Supermarket"){
 		alert("Whee");
-
+		map1.addLayer(GSLayer);
+		map2.addLayer(GSLayer);
 		/* if (other retail markets layers exist)
 		{removes other food market layers}
 			else {
@@ -154,6 +197,9 @@ function changeMarket(){
 		} */
 	} else if (foodmarket == "Hypermarket"){
 		alert("wha?");
+		map1.addLayer(HMLayer);
+		map2.addLayer(HMLayer);
+		map3.addLayer(HMLayer);
 		/* if (other retail markets layers exist)
 		{removes other food market layers}
 			else {
@@ -296,8 +342,6 @@ function getSNAP(map, n){
 			success: function(response){
 				var attributes = processData(response);
 				createSymbols(response, map, attributes);
-				changeMarket();
-				// function that selects market based on changeMarket(map, attributes);
 				}
 			});
 	} else if (n == 2) {
@@ -306,8 +350,6 @@ function getSNAP(map, n){
 				success: function(response){
 					var attributes = processData(response);
 					createSymbols(response, map, attributes);
-					changeMarket();
-					// function that selects market based on changeMarket(map, attributes);
 					}
 				});
 	} else if (n == 1) {
@@ -316,8 +358,6 @@ function getSNAP(map, n){
 			success: function(response){
 				var attributes = processData(response);
 				createSymbols(response, map, attributes);
-				changeMarket();
-				// function that selects market based on changeMarket(map, attributes);
 				}
 			});
 		};
@@ -353,6 +393,7 @@ function getSNAP(map, n){
 				return pointToLayer(feature, latlng, attributes);
 			}
 		});
+		return grocery;
 
 		var supermarket = L.geoJson(data, {
 			filter: function(feature, layer){
@@ -362,6 +403,7 @@ function getSNAP(map, n){
 				return pointToLayer(feature, latlng, attributes);
 			}
 		});
+		return supermarket;
 
 		var hypermarket = L.geoJson(data, {
 			filter: function(feature, layer){
@@ -371,6 +413,7 @@ function getSNAP(map, n){
 				return pointToLayer(feature, latlng, attributes);
 			}
 		});
+		return hypermarket;
 
 		// var othermarket = L.geoJson(data, {
 		// 	filter: function(featuture, layer){
@@ -381,60 +424,7 @@ function getSNAP(map, n){
 		// 		}
 		// 	});
 
-		// var markets = L.layerGroup([grocery, supermarket, hypermarket]).addTo(map);
-
 	};
-
-		// attach event listeners to create the markers based on the attributes
-		// $('#foodmarket').on('change', function(){
-		// 	map.eachLayer(function(layer){
-		// 		if (layer.feature){
-		// 			map.addLayer(layer)
-		// 		}
-		// 	});
-		// });
-
-		/* If-else statement adds layers, removes layers based upon value
-		from drop down menu */
-
-		/* if (value == "Grocery Store"){
-		remove all other layers,
-		add grocery store layer
-	} */
-
-		// $('Grocery Store').on('change', function(){
-		// 	map.eachLayer(function(layer){
-		// 		if (layer.feature != 'Grocery Store'){
-		// 			map.removeLayer(layer)
-		// 		}
-		// 		else if (layer.feature){
-		// 			map.addLayer(layer);
-		// 		}
-		// 	});
-		// });
-		//
-		// $('Supermarket').onchange = function(){
-		// 	map.eachLayer(function(layer){
-		// 		if (layer.setRadius && layer.feature.properties[current] != 'Supermarket'){
-		// 			layer.setRadius(0)
-		// 		}
-		// 		else if (layer.setRadius){
-		// 			layer.radius(3);
-		// 		}
-		// 	});
-		// };
-		//
-		// $('Hypermarket').onchange = function(){
-		// 	map.eachLayer(function(layer){
-		// 		if (layer.setRadius && layer.feature.properties[current] != 'Hypermarket'){
-		// 			layer.setRadius(0)
-		// 		}
-		// 		else if (layer.setRadius){
-		// 			layer.radius(3);
-		// 		}
-		// 	});
-		// };
-	// };
 
 /* Creating a function that generates the point layer based upon
 food market type */
@@ -483,91 +473,83 @@ food market type */
 		};
 };
 
-// function updateSymbols(map, attribute){
-// 	current = attribute;
-// 	map.eachLayer(function(layer){
-// 		if (layer.feature && layer.feature.properties[attribute]){
-// 			console.log(layer.feature.properties[attribute])
-// 		};
-// 	})
-// }
-
 // Creating a function that loads the walking service area for each map
 function getWalkBuffer(map, n){
+	var WalkBoston = "";
+	var WalkChicago = "";
+	var WalkSeattle = "";
+
 	if (n == 3) {
 		$.ajax("data/Boston_WalkBuffer.geojson", {
 			dataType: "json",
 			success: function(response){
-				var BostonWalkBuffer = L.geoJson(response, {
+				WalkBoston = L.geoJson(response, {
 					style: bufferStyle
-				}).addTo(map3);
-				}
-			});
+				}).addTo(map);
+			}
+		});
+		return WalkBoston;
 	} else if (n == 2) {
 		$.ajax("data/Chicago_WalkBuffer.geojson", {
 			dataType: "json",
 			success: function(response){
-				var ChicagoWalkBuffer = L.geoJson(response, {
+				WalkChicago = L.geoJson(response, {
 					style: bufferStyle
-				}).addTo(map2);
-				}
-			});
+				}).addTo(map);
+			}
+		});
+		return WalkChicago;
 	} else if (n == 1) {
 		$.ajax("data/Seattle_WalkBuffer.geojson", {
 			dataType: "json",
 			success: function(response){
-				var SeattleWalkBuffer = L.geoJson(response, {
+				WalkSeattle = L.geoJson(response, {
 					style: bufferStyle
-				}).addTo(map1);
-				}
-			});
-		};
+				}).addTo(map);
+			}
+		});
+		return WalkSeattle;
+	};
 };
 
 // Creating a function that loads the bicycle routes for each map
 function getBike(map, n){
+	var BikeBoston = "";
+	var BikeChicago = "";
+	var BikeSeattle = "";
+
 	if (n == 3) {
 		$.ajax("data/Boston_BicycleRoute.geojson", {
 			dataType: "json",
 			success: function(response){
-				L.geoJson(response, {
+				BikeBoston = L.geoJson(response, {
 					style: bikeStyle
 				}).addTo(map);
 			}
 		});
+		return BikeBoston;
 	} else if (n == 2) {
 		$.ajax("data/Chicago_BicycleRoute.geojson", {
 			dataType: "json",
 			success: function(response){
-				L.geoJson(response, {
+				var BikeChicago = L.geoJson(response, {
 					style: bikeStyle
 				}).addTo(map);
 			}
 		});
+		return BikeChicago;
 	} else if (n == 1) {
 		$.ajax("data/Seattle_BicycleRoute.geojson", {
 			dataType: "json",
 			success: function(response){
-				L.geoJson(response, {
+				BikeSeatle = L.geoJson(response, {
 					style: bikeStyle
 				}).addTo(map);
 			}
 		});
+		return BikeSeattle;
 	};
 };
-
-
-// function getBikeBuffer(map){
-// 	for (i = 0; i < cityarray.length; i++){
-// 		data = cityarray[i]+ "_BicycleBuffer";
-// 		$.ajax("data/"+data+".geojson", {
-// 			dataType: "json",
-// 			success: function(response){
-// 				console.log(response);
-// 			}
-// 		});
-// 	}
-// };
 
 /* Creating a funcion that loads the commuter rail lines and service area buffers
  for each of the maps */
@@ -584,60 +566,63 @@ function getRail(map, n){
 	// };
 
 	if (n == 3) {
-		$.ajax("data/Boston_RailLines.geojson", {
-			dataType: "json",
-			success: function(response){
-				L.geoJson(response, {
-					style: railStyle
-				}).addTo(map3);
-			}
-		});
+		// $.ajax("data/Boston_RailLines.geojson", {
+		// 	dataType: "json",
+		// 	success: function(response){
+		// 		L.geoJson(response, {
+		// 			style: railStyle
+		// 		}).addTo(map3);
+		// 	}
+		// });
 
 		$.ajax("data/Boston_RailBuffer.geojson", {
 			dataType: "json",
 			success: function(response){
-				L.geoJson(response, {
+				RailBoston = L.geoJson(response, {
 					style: bufferStyle
 				}).addTo(map3);
 			}
 		});
+		return RailBoston;
 
 	} else if (n == 2) {
-		$.ajax("data/Chicago_RailLines.geojson", {
-			dataType: "json",
-			success: function(response){
-				L.geoJson(response, {
-					style: railStyle
-				}).addTo(map2);
-			}
-		});
-
+		// $.ajax("data/Chicago_RailLines.geojson", {
+		// 	dataType: "json",
+		// 	success: function(response){
+		// 		L.geoJson(response, {
+		// 			style: railStyle
+		// 		}).addTo(map2);
+		// 	}
+		// });
+		//
 		$.ajax("data/Chicago_RailBuffer.geojson", {
 			dataType: "json",
 			success: function(response){
-				L.geoJson(response,{
+				RailChicago = L.geoJson(response,{
 					style: bufferStyle
 				}).addTo(map2);
 			}
 		});
+		return RailChicago;
 	} else if (n == 1) {
-		$.ajax("data/Seattle_RailLines.geojson", {
-			dataType: "json",
-			success: function(response){
-				L.geoJson(response, {
-					style: railStyle
-				}).addTo(map1);
-			}
-		});
+		// $.ajax("data/Seattle_RailLines.geojson", {
+		// 	dataType: "json",
+		// 	success: function(response){
+		// 		L.geoJson(response, {
+		// 			style: railStyle
+		// 		}).addTo(map1);
+		// 	}
+		// });
 
 		$.ajax("data/Seattle_RailBuffer.geojson", {
 			dataType: "json",
 			success: function(response){
-				L.geoJson(response, {
+				RailSeattle = L.geoJson(response, {
 					style: bufferStyle
 				}).addTo(map1);
 			}
 		});
+		return RailSeattle;
 	};
 };
 

@@ -51,7 +51,6 @@ var SMLayer;
 var HMLayer;
 
 function initialize(){
-
 	d3.queue()
 		.defer(d3.json, "data/Seattle_WalkBuffer.geojson")
 		.defer(d3.json, "data/Chicago_WalkBuffer.geojson")
@@ -141,7 +140,7 @@ function initialize(){
 			}
 		}).addTo(map3);
 
-		// // Adding buffers to
+		// Loading buffers into the script to be used for other actions
 		setWalkBuffer(walkseattle, 1);
 		setWalkBuffer(walkchicago, 2);
 		// setWalkBuffer(walkboston, 3);
@@ -160,8 +159,8 @@ function initialize(){
 	};
 	createMap();
 	updateLayers();
-	};
 
+	};
 function createMap(){
 		map1= L.map('mapid', {
 			center: [47.6232,-122.3321],
@@ -187,6 +186,7 @@ function createMap(){
 			center: [42.3301,-71.0589],
 			zoom: 11,
 			layers: baseBoston
+
 		});
 
 		var baseBoston = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
@@ -320,6 +320,7 @@ function changeTransportation(){
 		map3.removeLayer(RailBoston);
 
 	} else if (transportationmode == 'All Mode Choices'){
+		// LOOK AT FOR TYPE ERROR?
 		map1.addLayer(WalkSeattle);
 		map1.addLayer(BikeSeattle);
 		// map1.addLayer(RailSeattle);
@@ -439,6 +440,7 @@ function changeMarket(){
 		map3.removeLayer(SMBoston);
 		map3.removeLayer(HMBoston);
 	} else if (foodmarket == "All Food Retail Markets"){
+		// LOOK AT FOR TYPE ERROR?
 		map1.addLayer(GSSeattle);
 		map1.addLayer(SMSeattle);
 		map1.addLayer(HMSeattle);

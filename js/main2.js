@@ -75,6 +75,7 @@ function initialize(){
 
 	function callback(error, walkseattle, walkchicago, bikeseattle, bikechicago,
 <<<<<<< HEAD
+<<<<<<< HEAD
 		railchicago, railboston, buschicago, busboston, seattlesnap, chicagosnap, bostonsnap, seattlect, chicagoct, bostonct, attribute){
 		// cts = {};
 		// walking = {};
@@ -82,6 +83,8 @@ function initialize(){
 		// railing = {};
 		// busing = {};
 =======
+=======
+>>>>>>> origin/master
 		railchicago, railboston, buschicago,
 		busboston, seattlesnap, chicagosnap, bostonsnap, seattlect, chicagoct, bostonct){
 		cts = {};
@@ -89,6 +92,9 @@ function initialize(){
 		bicycling = {};
 		railing = {};
 		busing = {};
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 
 		console.log(error);
@@ -152,7 +158,11 @@ function initialize(){
 		}).addTo(map3);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// // Adding buffers to
+=======
+		// Adding buffers to
+>>>>>>> origin/master
 =======
 		// Adding buffers to
 >>>>>>> origin/master
@@ -172,11 +182,17 @@ function initialize(){
 		getSNAP(chicagosnap, 2);
 		getSNAP(bostonsnap, 3);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/master
 
 		// changeTransportation();
 		// changeMarket();
 
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 	};
 	createMap();
@@ -214,6 +230,10 @@ function createMap(){
 			          attribution: 'CARTO'
 			        }).addTo(map3);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 =======
 
 >>>>>>> origin/master
@@ -222,21 +242,33 @@ function createMap(){
 function updateLayers(){
 	changeTransportation();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	changeMarket();
 };
 
 function changeTransportation(){
 =======
+=======
+>>>>>>> origin/master
 	// changeMarket();
 };
 
 function changeTransportation(walkseattle, walkchicago){
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 	var e = document.getElementById("modechoice");
 	var transportationmode = e.options[e.selectedIndex].value;
 
 	if (transportationmode == "Walk"){
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+		setWalkBuffer(walkseattle, 1);
+		setWalkBuffer(walkchicago, 2);
+
+>>>>>>> origin/master
 =======
 		setWalkBuffer(walkseattle, 1);
 		setWalkBuffer(walkchicago, 2);
@@ -252,6 +284,7 @@ function changeTransportation(walkseattle, walkchicago){
 			map2.addLayer(WalkChicago);
 		} else if (WalkSeattle == "undefined"){
 			setWalkBuffer(walkchicago, 2);
+<<<<<<< HEAD
 <<<<<<< HEAD
 		};
 
@@ -491,6 +524,8 @@ function changeMarket(){
 	};
 };
 =======
+=======
+>>>>>>> origin/master
 		}
 
 	} else if (transportationmode == "Bicycle"){
@@ -506,6 +541,9 @@ function changeMarket(){
 // function changeMarket(){
 //
 // };
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 // Creating a funcion for the colors based upon natural breaks and city
 function getCTColorSeattle(d){
@@ -533,6 +571,7 @@ function getCTColorBoston(d){
 };
 
 function getSNAP(data, n){
+<<<<<<< HEAD
 <<<<<<< HEAD
 	if (n == 3){
 		var attributes = processData(data);
@@ -692,12 +731,18 @@ function getSNAP(data, n){
 =======
 
 >>>>>>> origin/master
+=======
+
+>>>>>>> origin/master
 };
 
 function setWalkBuffer(data, n){
 	if (n == 3){
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// map3.removeLayer(WalkBoston);
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 		WalkBoston = L.geoJson(data, {
@@ -705,8 +750,13 @@ function setWalkBuffer(data, n){
 			});
 			WalkBoston.addTo(map3);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	} else if (n == 2){
 		// map2.removeLayer(WalkChicago);
+=======
+			console.log(WalkBoston);
+	} else if (n == 2){
+>>>>>>> origin/master
 =======
 			console.log(WalkBoston);
 	} else if (n == 2){
@@ -716,8 +766,13 @@ function setWalkBuffer(data, n){
 			});
 			WalkChicago.addTo(map2);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	} else if (n == 1){
 		// map1.removeLayer(WalkSeattle);
+=======
+			console.log(WalkChicago);
+	} else if (n == 1){
+>>>>>>> origin/master
 =======
 			console.log(WalkChicago);
 	} else if (n == 1){
@@ -727,6 +782,10 @@ function setWalkBuffer(data, n){
 			});
 			WalkSeattle.addTo(map1);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+			console.log(WalkSeattle);
+>>>>>>> origin/master
 =======
 			console.log(WalkSeattle);
 >>>>>>> origin/master
@@ -736,7 +795,10 @@ function setWalkBuffer(data, n){
 function setBikeBuffer(data, n){
 	if (n == 3){
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// map3.removeLayer(BikeBoston);
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 		BikeBoston = L.geoJson(data, {
@@ -744,8 +806,13 @@ function setBikeBuffer(data, n){
 			});
 			BikeBoston.addTo(map3);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	} else if  (n == 2){
 		// map2.removeLayer(BikeChicago);
+=======
+			console.log(BikeBoston);
+	} else if  (n == 2){
+>>>>>>> origin/master
 =======
 			console.log(BikeBoston);
 	} else if  (n == 2){
@@ -755,8 +822,13 @@ function setBikeBuffer(data, n){
 			});
 			BikeChicago.addTo(map2);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	} else if (n == 1){
 		// map1.removeLayer(BikeSeattle);
+=======
+			console.log(BikeChicago);
+	} else if (n == 1){
+>>>>>>> origin/master
 =======
 			console.log(BikeChicago);
 	} else if (n == 1){
@@ -766,6 +838,10 @@ function setBikeBuffer(data, n){
 			});
 			BikeSeattle.addTo(map1);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+			console.log(BikeSeattle);
+>>>>>>> origin/master
 =======
 			console.log(BikeSeattle);
 >>>>>>> origin/master
@@ -775,7 +851,10 @@ function setBikeBuffer(data, n){
 function setRailBuffer(data, n){
 	if (n == 3){
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// map3.removeLayer(RailBoston);
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 		RailBoston = L.geoJson(data, {
@@ -783,8 +862,13 @@ function setRailBuffer(data, n){
 			});
 			RailBoston.addTo(map3);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	} else if  (n == 2){
 		// map2.removeLayer(RailChicago);
+=======
+			console.log(RailBoston);
+	} else if  (n == 2){
+>>>>>>> origin/master
 =======
 			console.log(RailBoston);
 	} else if  (n == 2){
@@ -794,8 +878,13 @@ function setRailBuffer(data, n){
 			});
 			RailChicago.addTo(map2);
 <<<<<<< HEAD
+<<<<<<< HEAD
 	} else if (n == 1){
 		// map1.removeLayer(RailSeattle);
+=======
+			console.log(RailChicago);
+	} else if (n == 1){
+>>>>>>> origin/master
 =======
 			console.log(RailChicago);
 	} else if (n == 1){
@@ -805,6 +894,10 @@ function setRailBuffer(data, n){
 			});
 			RailSeattle.addTo(map1);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+			console.log(RailSeattle);
+>>>>>>> origin/master
 =======
 			console.log(RailSeattle);
 >>>>>>> origin/master
@@ -814,7 +907,10 @@ function setRailBuffer(data, n){
 function setBusBuffer(data, n){
 	if (n == 3){
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// map3.removeLayer(BusBoston);
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 		BusBoston = L.geoJson(data, {
@@ -824,7 +920,10 @@ function setBusBuffer(data, n){
 			console.log(BusBoston);
 	} else if  (n == 2){
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// map2.removeLayer(BusChicago);
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 		BusChicago = L.geoJson(data, {
@@ -834,7 +933,10 @@ function setBusBuffer(data, n){
 			console.log(BusChicago);
 	} else if (n == 1){
 <<<<<<< HEAD
+<<<<<<< HEAD
 		// map1.removeLayer(BusSeattle);
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 		BusSeattle = L.geoJson(data, {

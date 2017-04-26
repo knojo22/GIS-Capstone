@@ -157,9 +157,9 @@ function initialize(){
 		getSNAP(seattlesnap, 1);
 		getSNAP(chicagosnap, 2);
 		getSNAP(bostonsnap, 3);
+		updateLayers();
 	};
-	createMap();
-	updateLayers();
+		createMap();
 };
 
 function createMap(){
@@ -318,7 +318,26 @@ function changeTransportation(){
 		// map3.removeLayer(BikeBoston);
 		map3.removeLayer(RailBoston);
 
-	} else if (transportationmode == 'All Mode Choices'){
+	} else if (transportationmode == 'All Modes'){
+
+		// if (WalkSeattle != "null"){
+		// 	map1.addLayer(WalkSeattle);
+		// } else if (WalkSeattle == 'undefined'){
+		// 	setWalkBuffer(walkseattle, 1);
+		// };
+
+		// if (WalkChicago != "null"){
+		// 	map2.addLayer(WalkChicago);
+		// } else if (WalkSeattle == "undefined"){
+		// 	setWalkBuffer(walkchicago, 2);
+		// };
+
+		// if (WalkBoston != "null"){
+		// 	map3.addLayer(WalkBoston);
+		// } else if (WalkBoston == "undefined"){
+		// 	setWalkBuffer(walkboston, 3);
+		// };
+
 		map1.addLayer(WalkSeattle);
 		map1.addLayer(BikeSeattle);
 		// map1.addLayer(RailSeattle);
@@ -327,7 +346,6 @@ function changeTransportation(){
 		map2.addLayer(BikeChicago);
 		map2.addLayer(RailChicago);
 		map2.addLayer(BusChicago);
-		// map3.addLayer(WalkBoston);
 		// map3.addLayer(BikeBoston);
 		map3.addLayer(RailBoston);
 		map3.addLayer(BusBoston);
@@ -460,12 +478,15 @@ function changeMarket(){
 		map1.addLayer(GSSeattle);
 		map1.addLayer(SMSeattle);
 		map1.addLayer(HMSeattle);
+		map1.addLayer(OMSeattle);
 		map2.addLayer(GSChicago);
 		map2.addLayer(SMChicago);
 		map2.addLayer(HMChicago);
+		map2.addLayer(OMChicago);
 		map3.addLayer(GSBoston);
 		map3.addLayer(SMBoston);
 		map3.addLayer(HMBoston);
+		map3.addLayer(OMBoston);
 	};
 };
 // Creating a funcion for the colors based upon natural breaks and city

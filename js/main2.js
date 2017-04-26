@@ -74,12 +74,22 @@ function initialize(){
 		.await(callback);
 
 	function callback(error, walkseattle, walkchicago, bikeseattle, bikechicago,
+<<<<<<< HEAD
 		railchicago, railboston, buschicago, busboston, seattlesnap, chicagosnap, bostonsnap, seattlect, chicagoct, bostonct, attribute){
 		// cts = {};
 		// walking = {};
 		// bicycling = {};
 		// railing = {};
 		// busing = {};
+=======
+		railchicago, railboston, buschicago,
+		busboston, seattlesnap, chicagosnap, bostonsnap, seattlect, chicagoct, bostonct){
+		cts = {};
+		walking = {};
+		bicycling = {};
+		railing = {};
+		busing = {};
+>>>>>>> origin/master
 
 		console.log(error);
 		console.log(walkseattle);
@@ -141,7 +151,11 @@ function initialize(){
 			}
 		}).addTo(map3);
 
+<<<<<<< HEAD
 		// // Adding buffers to
+=======
+		// Adding buffers to
+>>>>>>> origin/master
 		setWalkBuffer(walkseattle, 1);
 		setWalkBuffer(walkchicago, 2);
 		// setWalkBuffer(walkboston, 3);
@@ -157,6 +171,13 @@ function initialize(){
 		getSNAP(seattlesnap, 1);
 		getSNAP(chicagosnap, 2);
 		getSNAP(bostonsnap, 3);
+<<<<<<< HEAD
+=======
+
+		// changeTransportation();
+		// changeMarket();
+
+>>>>>>> origin/master
 	};
 	createMap();
 	updateLayers();
@@ -192,18 +213,35 @@ function createMap(){
 		var baseBoston = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 			          attribution: 'CARTO'
 			        }).addTo(map3);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 	};
 
 function updateLayers(){
 	changeTransportation();
+<<<<<<< HEAD
 	changeMarket();
 };
 
 function changeTransportation(){
+=======
+	// changeMarket();
+};
+
+function changeTransportation(walkseattle, walkchicago){
+>>>>>>> origin/master
 	var e = document.getElementById("modechoice");
 	var transportationmode = e.options[e.selectedIndex].value;
 
 	if (transportationmode == "Walk"){
+<<<<<<< HEAD
+=======
+		setWalkBuffer(walkseattle, 1);
+		setWalkBuffer(walkchicago, 2);
+
+>>>>>>> origin/master
 		if (WalkSeattle != "null"){
 			map1.addLayer(WalkSeattle);
 		} else if (WalkSeattle == 'undefined'){
@@ -214,6 +252,7 @@ function changeTransportation(){
 			map2.addLayer(WalkChicago);
 		} else if (WalkSeattle == "undefined"){
 			setWalkBuffer(walkchicago, 2);
+<<<<<<< HEAD
 		};
 
 		// if (WalkBoston != "null"){
@@ -451,6 +490,23 @@ function changeMarket(){
 
 	};
 };
+=======
+		}
+
+	} else if (transportationmode == "Bicycle"){
+
+	} else if (transportationmode == "Rail"){
+
+	} else if (transportationmode == "Bus"){
+
+	}
+
+};
+//
+// function changeMarket(){
+//
+// };
+>>>>>>> origin/master
 // Creating a funcion for the colors based upon natural breaks and city
 function getCTColorSeattle(d){
 	return d > 2.565 ? "#993404":
@@ -477,6 +533,7 @@ function getCTColorBoston(d){
 };
 
 function getSNAP(data, n){
+<<<<<<< HEAD
 	if (n == 3){
 		var attributes = processData(data);
 
@@ -632,91 +689,154 @@ function getSNAP(data, n){
 					return layer;
 				};
 		};
+=======
+
+>>>>>>> origin/master
 };
 
 function setWalkBuffer(data, n){
 	if (n == 3){
+<<<<<<< HEAD
 		// map3.removeLayer(WalkBoston);
+=======
+>>>>>>> origin/master
 		WalkBoston = L.geoJson(data, {
 				style: walkbufferStyle
 			});
 			WalkBoston.addTo(map3);
+<<<<<<< HEAD
 	} else if (n == 2){
 		// map2.removeLayer(WalkChicago);
+=======
+			console.log(WalkBoston);
+	} else if (n == 2){
+>>>>>>> origin/master
 		WalkChicago = L.geoJson(data, {
 				style: walkbufferStyle
 			});
 			WalkChicago.addTo(map2);
+<<<<<<< HEAD
 	} else if (n == 1){
 		// map1.removeLayer(WalkSeattle);
+=======
+			console.log(WalkChicago);
+	} else if (n == 1){
+>>>>>>> origin/master
 		WalkSeattle = L.geoJson(data, {
 				style: walkbufferStyle
 			});
 			WalkSeattle.addTo(map1);
+<<<<<<< HEAD
+=======
+			console.log(WalkSeattle);
+>>>>>>> origin/master
 	};
 };
 
 function setBikeBuffer(data, n){
 	if (n == 3){
+<<<<<<< HEAD
 		// map3.removeLayer(BikeBoston);
+=======
+>>>>>>> origin/master
 		BikeBoston = L.geoJson(data, {
 				style: bikebufferStyle
 			});
 			BikeBoston.addTo(map3);
+<<<<<<< HEAD
 	} else if  (n == 2){
 		// map2.removeLayer(BikeChicago);
+=======
+			console.log(BikeBoston);
+	} else if  (n == 2){
+>>>>>>> origin/master
 		BikeChicago = L.geoJson(data, {
 				style: bikebufferStyle
 			});
 			BikeChicago.addTo(map2);
+<<<<<<< HEAD
 	} else if (n == 1){
 		// map1.removeLayer(BikeSeattle);
+=======
+			console.log(BikeChicago);
+	} else if (n == 1){
+>>>>>>> origin/master
 		BikeSeattle = L.geoJson(data, {
 				style: bikebufferStyle
 			});
 			BikeSeattle.addTo(map1);
+<<<<<<< HEAD
+=======
+			console.log(BikeSeattle);
+>>>>>>> origin/master
 	}
 };
 
 function setRailBuffer(data, n){
 	if (n == 3){
+<<<<<<< HEAD
 		// map3.removeLayer(RailBoston);
+=======
+>>>>>>> origin/master
 		RailBoston = L.geoJson(data, {
 				style: railbufferStyle
 			});
 			RailBoston.addTo(map3);
+<<<<<<< HEAD
 	} else if  (n == 2){
 		// map2.removeLayer(RailChicago);
+=======
+			console.log(RailBoston);
+	} else if  (n == 2){
+>>>>>>> origin/master
 		RailChicago = L.geoJson(data, {
 				style: railbufferStyle
 			});
 			RailChicago.addTo(map2);
+<<<<<<< HEAD
 	} else if (n == 1){
 		// map1.removeLayer(RailSeattle);
+=======
+			console.log(RailChicago);
+	} else if (n == 1){
+>>>>>>> origin/master
 		RailSeattle = L.geoJson(data, {
 				style: railbufferStyle
 			});
 			RailSeattle.addTo(map1);
+<<<<<<< HEAD
+=======
+			console.log(RailSeattle);
+>>>>>>> origin/master
 	}
 };
 
 function setBusBuffer(data, n){
 	if (n == 3){
+<<<<<<< HEAD
 		// map3.removeLayer(BusBoston);
+=======
+>>>>>>> origin/master
 		BusBoston = L.geoJson(data, {
 				style: busbufferStyle
 			});
 			BusBoston.addTo(map3);
 			console.log(BusBoston);
 	} else if  (n == 2){
+<<<<<<< HEAD
 		// map2.removeLayer(BusChicago);
+=======
+>>>>>>> origin/master
 		BusChicago = L.geoJson(data, {
 				style: busbufferStyle
 			});
 			BusChicago.addTo(map2);
 			console.log(BusChicago);
 	} else if (n == 1){
+<<<<<<< HEAD
 		// map1.removeLayer(BusSeattle);
+=======
+>>>>>>> origin/master
 		BusSeattle = L.geoJson(data, {
 				style: busbufferStyle
 			});

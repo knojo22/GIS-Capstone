@@ -3,52 +3,52 @@ var map2;
 var map3;
 
 var walkbufferStyle = {
-	"fillColor": "#d95f0e",
-	"weight": 2,
+	"fillColor": "#807dba",
+	"weight": 0.5,
 	"opacity": 1,
-	"color": "#bdbdbd",
+	"color": "#000000",
 	"fillopacity": 10
 };
 
 var bikebufferStyle = {
-	"fillColor": "#ff7800",
-	"weight": 2,
+	"fillColor": "#41b6c4",
+	"weight": 0.5,
 	"opacity": 1,
-	"color": "#bdbdbd",
+	"color": "#000000",
 	"fillopacity": 10
 };
 
 var railbufferStyle = {
-	"fillColor": "#31a354",
-	"weight": 2,
+	"fillColor": "#41ab5d",
+	"weight": 0.5,
 	"opacity": 1,
-	"color": "#bdbdbd",
+	"color": "#000000",
 	"fillopacity": 10
 };
 
 var busbufferStyle = {
-	"fillColor": "#756bb1",
-	"weight": 2,
+	"fillColor": "#e7298a",
+	"weight": 0.5,
 	"opacity": 1,
-	"color": "#bdbdbd",
+	"color": "#000000",
 	"fillopacity": 10
 };
 
-var WalkSeattle;
-var WalkChicago;
-var WalkBoston;
-var BikeSeattle;
-var BikeChicago;
-var BikeBoston;
-var RailSeattle;
-var RailChicago;
-var RailBoston;
-var BusChicago;
-var BusSeattle;
-var BusBoston;
-var GSLayer;
-var SMLayer;
-var HMLayer;
+// var WalkSeattle;
+// var WalkChicago;
+// var WalkBoston;
+// var BikeSeattle;
+// var BikeChicago;
+// var BikeBoston;
+// var RailSeattle;
+// var RailChicago;
+// var RailBoston;
+// var BusChicago;
+// var BusSeattle;
+// var BusBoston;
+// var GSLayer;
+// var SMLayer;
+// var HMLayer;
 
 function initialize(){
 
@@ -361,13 +361,13 @@ function changeMarket(){
 
 		map1.removeLayer(SMSeattle);
 		map1.removeLayer(HMSeattle);
-		// map1.removeLayer(OMSeattle);
+		map1.removeLayer(OMSeattle);
 		map2.removeLayer(SMChicago);
 		map2.removeLayer(HMChicago);
-		// map2.removeLayer(OMChicago);
+		map2.removeLayer(OMChicago);
 		map3.removeLayer(SMBoston);
 		map3.removeLayer(HMBoston);
-		// map3.removeLayer(OMBoston);
+		map3.removeLayer(OMBoston);
 
 	} else if (foodmarket == "Supermarket"){
 		if (SMSeattle != "null"){
@@ -390,13 +390,13 @@ function changeMarket(){
 
 		map1.removeLayer(GSSeattle);
 		map1.removeLayer(HMSeattle);
-		// map1.removeLayer(OMSeattle);
+		map1.removeLayer(OMSeattle);
 		map2.removeLayer(GSChicago);
 		map2.removeLayer(HMChicago);
-		// map2.removeLayer(OMChicago);
+		map2.removeLayer(OMChicago);
 		map3.removeLayer(GSBoston);
 		map3.removeLayer(HMBoston);
-		// map3.removeLayer(OMBoston);
+		map3.removeLayer(OMBoston);
 
 	} else if (foodmarket == "Hypermarket"){
 		if (HMSeattle != "null"){
@@ -419,15 +419,33 @@ function changeMarket(){
 
 		map1.removeLayer(GSSeattle);
 		map1.removeLayer(SMSeattle);
-		// map1.removeLayer(OMSeattle);
+		map1.removeLayer(OMSeattle);
 		map2.removeLayer(GSChicago);
 		map2.removeLayer(SMChicago);
-		// map2.removeLayer(OMChicago);
+		map2.removeLayer(OMChicago);
 		map3.removeLayer(GSBoston);
 		map3.removeLayer(SMBoston);
-		// map3.removeLayer(OMBoston);
+		map3.removeLayer(OMBoston);
 
 	} else if (foodmarket == 'Other Markets'){
+		if (OMSeattle != "null"){
+			map1.addLayer(OMSeattle);
+		} else if (OMSeattle == "undefined"){
+			getSNAP(seattlesnap, 1);
+		};
+
+		if (OMChicago != "null"){
+			map2.addLayer(OMChicago);
+		} else if (OMChicago == "undefined"){
+			getSNAP(chicagosnap, 2);
+		};
+
+		if (OMBoston != "null"){
+			map3.addLayer(OMBoston);
+		} else if (OMBoston == "undefined"){
+			getSNAP(bostonsnap, 3);
+		};
+
 		map1.removeLayer(GSSeattle);
 		map1.removeLayer(SMSeattle);
 		map1.removeLayer(HMSeattle);
@@ -438,6 +456,7 @@ function changeMarket(){
 		map3.removeLayer(SMBoston);
 		map3.removeLayer(HMBoston);
 	} else if (foodmarket == "All Food Retail Markets"){
+
 		map1.addLayer(GSSeattle);
 		map1.addLayer(SMSeattle);
 		map1.addLayer(HMSeattle);
@@ -508,6 +527,16 @@ function getSNAP(data, n){
 		});
 		HMBoston.addTo(map3);
 
+		OMBoston = L.geoJson(data, {
+			filter: function(feature, layer){
+				return feature.properties.MarketType == "Other Market";
+			},
+			pointToLayer: function(feature, latlng){
+				return pointToLayer(feature, latlng, attributes);
+			}
+		});
+		OMBoston.addTo(map3);
+
 	} else if (n == 2){
 		var attributes = processData(data);
 
@@ -541,6 +570,16 @@ function getSNAP(data, n){
 		});
 		HMChicago.addTo(map2);
 
+		OMChicago = L.geoJson(data, {
+			filter: function(feature, layer){
+				return feature.properties.MarketType == "Other Market";
+			},
+			pointToLayer: function(feature, latlng){
+				return pointToLayer(feature, latlng, attributes);
+			}
+		});
+		OMChicago.addTo(map2);
+
 	} else if (n == 1){
 		var attributes = processData(data);
 
@@ -573,6 +612,16 @@ function getSNAP(data, n){
 			}
 		});
 		HMSeattle.addTo(map1);
+
+		OMSeattle = L.geoJson(data, {
+			filter: function(feature, layer){
+				return feature.properties.MarketType == "Other Market";
+			},
+			pointToLayer: function(feature, latlng){
+				return pointToLayer(feature, latlng, attributes);
+			}
+		});
+		OMSeattle.addTo(map1);
 	};
 
 	function processData(data){
@@ -594,37 +643,41 @@ function getSNAP(data, n){
 				if (attrValue == "Grocery Store"){
 					var layer = L.circleMarker(latlng, {
 					  radius: 3,
-					  fillColor: "#a6cee3",
+						color: "#000000",
+					  fillColor: "#7fcdbb",
 					  weight: 1,
 					  opacity: 1,
-					  fillOpacity: 0.4
+					  fillOpacity: 1
 					});
 					return layer;
 				} else if (attrValue == "Supermarket"){
 					var layer = L.circleMarker(latlng, {
 					  radius: 6,
+						color: "#000000",
 					  fillColor: "#1f78b4",
 					  weight: 1,
 					  opacity: 1,
-					  fillOpacity: 0.4
+					  fillOpacity: 1
 					});
 					return layer;
 				} else if (attrValue == "Hypermarket"){
 					var layer = L.circleMarker(latlng, {
 					  radius: 8,
+						color: "#000000",
 					  fillColor: "#b2df8a",
 					  weight: 1,
 					  opacity: 1,
-					  fillOpacity: 0.4
+					  fillOpacity: 1
 					});
 					return layer;
-				  } else {
+				} else if (attrValue == "Other Market"){
 					var layer = L.circleMarker(latlng, {
-					  radius: 2,
-					  fillColor: "#b2df8a",
-					  weight: 1,
+					  radius: 3,
+						color: "#000000",
+					  fillColor: "#bdbdbd",
+					  weight: 0.5,
 					  opacity: 1,
-					  fillOpacity: 0.4
+					  fillOpacity: 1
 					});
 					return layer;
 				};

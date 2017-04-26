@@ -38,6 +38,7 @@ body{
   width: 40%;
   top: 20px;
   display: inline-block;
+  position: relative;
   padding: 20px;
 }
 
@@ -46,6 +47,7 @@ body{
   width: 40%;
   top: 20px;
   display: inline-block;
+  position: relative;
   padding: 20px;
 }
 
@@ -54,6 +56,7 @@ body{
   width: 40%;
   top: 20px;
   display: inline-block;
+  position: relative;
   padding: 20px;
 }
 
@@ -84,6 +87,7 @@ body{
   display: inline-block;
   padding: 20px;
 }
+
 
 /*.legend-control-container{
   width: 225px;

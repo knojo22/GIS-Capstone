@@ -46,9 +46,6 @@ var RailBoston;
 var BusChicago;
 var BusSeattle;
 var BusBoston;
-var GSLayer;
-var SMLayer;
-var HMLayer;
 
 function initialize(){
 
@@ -73,8 +70,7 @@ function initialize(){
 		.defer(d3.json, "data/Boston_CT.geojson")
 		.await(callback);
 
-	function callback(error, walkseattle, walkchicago, bikeseattle, bikechicago,
-		railchicago, railboston, buschicago, busboston, seattlesnap, chicagosnap, bostonsnap, seattlect, chicagoct, bostonct, attribute){
+	function callback(error, walkseattle, walkchicago, bikeseattle, bikechicago, railchicago, railboston, buschicago, busboston, seattlesnap, chicagosnap, bostonsnap, seattlect, chicagoct, bostonct, attribute){
 		// cts = {};
 		// walking = {};
 		// bicycling = {};
@@ -160,7 +156,7 @@ function initialize(){
 	};
 	createMap();
 	updateLayers();
-};
+	};
 
 function createMap(){
 		map1= L.map('mapid', {
@@ -333,7 +329,6 @@ function changeTransportation(){
 		map3.addLayer(RailBoston);
 		map3.addLayer(BusBoston);
 	}
-
 };
 
 // Defining a function that adds and/or removes layers from
@@ -508,6 +503,7 @@ function getSNAP(data, n){
 			}
 		});
 		HMBoston.addTo(map3);
+
 	} else if (n == 2){
 		var attributes = processData(data);
 
@@ -720,7 +716,7 @@ function setBusBuffer(data, n){
 			});
 			BusSeattle.addTo(map1);
 			console.log(BusSeattle);
-	}
+	};
 };
+
 $(document).ready(initialize);
->>>>>>> Commit updated main.js

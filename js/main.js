@@ -141,7 +141,8 @@ function initialize(){
 			}
 		}).addTo(map3);
 
-		// // Adding buffers to
+		/* Loading geojsons into d3.queue to be loaded asynchronously in which the
+		data will be used for other functions */
 		setWalkBuffer(walkseattle, 1);
 		setWalkBuffer(walkchicago, 2);
 		// setWalkBuffer(walkboston, 3);
@@ -203,23 +204,6 @@ function changeTransportation(){
 	var transportationmode = e.options[e.selectedIndex].value;
 
 	if (transportationmode == "Walk"){
-		if (WalkSeattle != "null"){
-			map1.addLayer(WalkSeattle);
-		} else if (WalkSeattle == 'undefined'){
-			setWalkBuffer(walkseattle, 1);
-		};
-
-		if (WalkChicago != "null"){
-			map2.addLayer(WalkChicago);
-		} else if (WalkSeattle == "undefined"){
-			setWalkBuffer(walkchicago, 2);
-		};
-
-		// if (WalkBoston != "null"){
-		// 	map3.addLayer(WalkBoston);
-		// } else if (WalkBoston == "undefined"){
-		// 	setWalkBuffer(walkboston, 3);
-		// };
 
 		map1.removeLayer(BikeSeattle);
 		// map1.removeLayer(RailSeattle);
@@ -232,23 +216,6 @@ function changeTransportation(){
 		map3.removeLayer(BusBoston);
 
 	} else if (transportationmode == "Bicycle"){
-		if (BikeSeattle != "null"){
-			map1.addLayer(BikeSeattle);
-		} else if (BikeSeattle == 'undefined'){
-			setBikeBuffer(bikeseattle, 1);
-		};
-
-		if (BikeChicago != "null"){
-			map2.addLayer(BikeChicago);
-		} else if (BikeSeattle == "undefined"){
-			setBikeBuffer(bikechicago, 2);
-		};
-
-		// if (BikeBoston != "null"){
-		// 	map3.addLayer(BikeBoston);
-		// } else if (BikeBoston == "undefined"){
-		// 	setBikeBuffer(bikeboston, 3);
-		// };
 
 		map1.removeLayer(WalkSeattle);
 		// map1.removeLayer(RailSeattle);
@@ -261,11 +228,6 @@ function changeTransportation(){
 		map3.removeLayer(BusBoston);
 
 	} else if (transportationmode == "Rail"){
-		// if (RailSeattle != "null"){
-		// 	map1.addLayer(RailSeattle);
-		// } else if (RailSeattle == 'undefined'){
-		// 	setRailBuffer(railseattle, 1);
-		// };
 
 		if (RailChicago != "null"){
 			map2.addLayer(RailChicago);
@@ -290,11 +252,6 @@ function changeTransportation(){
 		map3.removeLayer(BusBoston);
 
 	} else if (transportationmode == "Bus"){
-		// if (BusSeattle != "null"){
-		// 	map1.addLayer(BusSeattle);
-		// } else if (BusSeattle == 'undefined'){
-		// 	setBusBuffer(busseattle, 1);
-		// };
 
 		if (BusChicago != "null"){
 			map2.addLayer(BusChicago);
@@ -320,24 +277,6 @@ function changeTransportation(){
 
 	} else if (transportationmode == 'All Modes'){
 
-		// if (WalkSeattle != "null"){
-		// 	map1.addLayer(WalkSeattle);
-		// } else if (WalkSeattle == 'undefined'){
-		// 	setWalkBuffer(walkseattle, 1);
-		// };
-
-		// if (WalkChicago != "null"){
-		// 	map2.addLayer(WalkChicago);
-		// } else if (WalkSeattle == "undefined"){
-		// 	setWalkBuffer(walkchicago, 2);
-		// };
-
-		// if (WalkBoston != "null"){
-		// 	map3.addLayer(WalkBoston);
-		// } else if (WalkBoston == "undefined"){
-		// 	setWalkBuffer(walkboston, 3);
-		// };
-
 		map1.addLayer(WalkSeattle);
 		map1.addLayer(BikeSeattle);
 		// map1.addLayer(RailSeattle);
@@ -360,23 +299,26 @@ function changeMarket(){
 
  	if (foodmarket == "Grocery Store"){
 		if (GSSeattle != "null"){
-			map1.addLayer(GSSeattle);
+
 		} else if (GSSeattle == "undefined"){
 			getSNAP(seattlesnap, 1);
 		};
 
 		if (GSChicago != "null"){
-			map2.addLayer(GSChicago);
+
 		} else if (GSChicago == "undefined"){
 			getSNAP(chicagosnap, 2);
 		};
 
 		if (GSBoston != "null"){
-			map3.addLayer(GSBoston);
+
 		} else if (GSBoston == "undefined"){
 			getSNAP(bostonsnap, 3);
 		};
 
+		map1.addLayer(GSSeattle);
+		map2.addLayer(GSChicago);
+		map3.addLayer(GSBoston);
 		map1.removeLayer(SMSeattle);
 		map1.removeLayer(HMSeattle);
 		map1.removeLayer(OMSeattle);
@@ -388,24 +330,13 @@ function changeMarket(){
 		map3.removeLayer(OMBoston);
 
 	} else if (foodmarket == "Supermarket"){
-		if (SMSeattle != "null"){
-			map1.addLayer(SMSeattle);
-		} else if (SMSeattle == "undefined"){
-			getSNAP(seattlesnap, 1);
-		};
 
-		if (SMChicago != "null"){
-			map2.addLayer(SMChicago);
-		} else if (SMChicago == "undefined"){
-			getSNAP(chicagosnap, 2);
-		};
+		// Adding Supermarket layer for all the maps
+		map1.addLayer(SMSeattle);
+		map2.addLayer(SMChicago);
+		map3.addLayer(SMBoston);
 
-		if (SMBoston != "null"){
-			map3.addLayer(SMBoston);
-		} else if (SMBoston == "undefined"){
-			getSNAP(bostonsnap, 3);
-		};
-
+		// Removing the rest of the retail food market layers from the map
 		map1.removeLayer(GSSeattle);
 		map1.removeLayer(HMSeattle);
 		map1.removeLayer(OMSeattle);
@@ -417,24 +348,13 @@ function changeMarket(){
 		map3.removeLayer(OMBoston);
 
 	} else if (foodmarket == "Hypermarket"){
-		if (HMSeattle != "null"){
-			map1.addLayer(HMSeattle);
-		} else if (HMSeattle == "undefined"){
-			getSNAP(seattlesnap, 1);
-		};
 
-		if (HMChicago != "null"){
-			map2.addLayer(HMChicago);
-		} else if (HMChicago == "undefined"){
-			getSNAP(chicagosnap, 2);
-		};
+		// Adding Hypermarket layers for all of the maps
+		map1.addLayer(HMSeattle);
+		map2.addLayer(HMChicago);
+		map3.addLayer(HMBoston);
 
-		if (HMBoston != "null"){
-			map3.addLayer(HMBoston);
-		} else if (HMBoston == "undefined"){
-			getSNAP(bostonsnap, 3);
-		};
-
+		// Removing the rest of the retail food market layers from the map
 		map1.removeLayer(GSSeattle);
 		map1.removeLayer(SMSeattle);
 		map1.removeLayer(OMSeattle);
@@ -447,23 +367,29 @@ function changeMarket(){
 
 	} else if (foodmarket == 'Other Markets'){
 		if (OMSeattle != "null"){
-			map1.addLayer(OMSeattle);
+
 		} else if (OMSeattle == "undefined"){
 			getSNAP(seattlesnap, 1);
 		};
 
 		if (OMChicago != "null"){
-			map2.addLayer(OMChicago);
+
 		} else if (OMChicago == "undefined"){
 			getSNAP(chicagosnap, 2);
 		};
 
 		if (OMBoston != "null"){
-			map3.addLayer(OMBoston);
+
 		} else if (OMBoston == "undefined"){
 			getSNAP(bostonsnap, 3);
 		};
 
+		// Adding Hypermarket layers for all of the maps
+		map1.addLayer(OMSeattle);
+		map2.addLayer(OMChicago);
+		map3.addLayer(OMBoston);
+
+			// Removing the rest of the retail food market layers from the map
 		map1.removeLayer(GSSeattle);
 		map1.removeLayer(SMSeattle);
 		map1.removeLayer(HMSeattle);
@@ -473,6 +399,7 @@ function changeMarket(){
 		map3.removeLayer(GSBoston);
 		map3.removeLayer(SMBoston);
 		map3.removeLayer(HMBoston);
+		
 	} else if (foodmarket == "All Food Retail Markets"){
 
 		map1.addLayer(GSSeattle);

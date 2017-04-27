@@ -40,6 +40,7 @@ body{
   display: inline-block;
   position: relative;
   padding: 20px;
+  border: 3px solid #999;
 }
 
 #mapid2 {
@@ -49,6 +50,7 @@ body{
   display: inline-block;
   position: relative;
   padding: 20px;
+  border: 3px solid #999;
 }
 
 #mapid3 {
@@ -58,6 +60,7 @@ body{
   display: inline-block;
   position: relative;
   padding: 20px;
+  border: 3px solid #999;
 }
 
 #modechoice_menu{
@@ -85,15 +88,36 @@ body{
   width: 40%;
   top: 20px;
   display: inline-block;
+  position: relative;
   padding: 20px;
+  border: 3px solid #999;
+  background-color: rgba(255,255,255,0.8);
+  font-family:"Times New Roman", Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: top;
 }
 
+/*.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 2500px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+    z-index:9000;
+}*/
 
-/*.legend-control-container{
-  width: 225px;
+.legend-control-container{
+  width: 220px;
   height: 100px;
   background-color: rgba(255,255,255,0.8);
-  padding: 10px;
+  padding: 5px;
   font-family:"Times New Roman", Helvetica, sans-serif;
   font-size: 13px;
   font-weight: bold;
@@ -102,7 +126,7 @@ body{
   border: solid gray 2px;
   border-radius: 10px;
 }
-
+/*
 .leaflet-popup-content p {
   margin: 0.2em 0;
   font-family: "Times New Roman", Helvetica, sans-serif;

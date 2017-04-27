@@ -34,31 +34,15 @@ var busbufferStyle = {
 	"fillopacity": 10
 };
 
-// var WalkSeattle;
-// var WalkChicago;
-// var WalkBoston;
-// var BikeSeattle;
-// var BikeChicago;
-// var BikeBoston;
-// var RailSeattle;
-// var RailChicago;
-// var RailBoston;
-// var BusChicago;
-// var BusSeattle;
-// var BusBoston;
-// var GSLayer;
-// var SMLayer;
-// var HMLayer;
-
 function initialize(){
 
 	d3.queue()
 		.defer(d3.json, "data/Seattle_WalkBuffer.geojson")
 		.defer(d3.json, "data/Chicago_WalkBuffer.geojson")
-		// .defer(d3.json, "data/Boston_WalkBuffer.geojson")
+		.defer(d3.json, "data/Boston_WalkBuffer.geojson")
 		.defer(d3.json, "data/Seattle_BicycleBuffer.geojson")
 		.defer(d3.json, "data/Chicago_BicycleBuffer.geojson")
-		// .defer(d3.json, "data/Boston_BicycleBuffer.geojson")
+		.defer(d3.json, "data/Boston_BicycleBuffer.geojson")
 		// .defer(d3.json, "data/Seattle_RailBuffer.geojson")
 		.defer(d3.json, "data/Chicago_RailBuffer.geojson")
 		.defer(d3.json, "data/Boston_RailBuffer.geojson")
@@ -73,7 +57,7 @@ function initialize(){
 		.defer(d3.json, "data/Boston_CT.geojson")
 		.await(callback);
 
-	function callback(error, walkseattle, walkchicago, bikeseattle, bikechicago,
+	function callback(error, walkseattle, walkchicago, walkboston, bikeseattle, bikechicago, bikeboston,
 		railchicago, railboston, buschicago, busboston, seattlesnap, chicagosnap, bostonsnap, seattlect, chicagoct, bostonct, attribute){
 		// cts = {};
 		// walking = {};
@@ -84,10 +68,10 @@ function initialize(){
 		console.log(error);
 		console.log(walkseattle);
 		console.log(walkchicago);
-		// console.log(walkboston);
+		console.log(walkboston);
 		console.log(bikeseattle);
 		console.log(bikechicago);
-		// console.log(bikeboston);
+		console.log(bikeboston);
 		// console.log(railseattle);
 		console.log(railchicago);
 		console.log(railboston);
@@ -145,10 +129,10 @@ function initialize(){
 		data will be used for other functions */
 		setWalkBuffer(walkseattle, 1);
 		setWalkBuffer(walkchicago, 2);
-		// setWalkBuffer(walkboston, 3);
+		setWalkBuffer(walkboston, 3);
 		setBikeBuffer(bikeseattle, 1);
 		setBikeBuffer(bikechicago, 2);
-		// setBikeBuffer(bikeboston, 3);
+		setBikeBuffer(bikeboston, 3);
 		// setRailBuffer(railseattle, 1);
 		setRailBuffer(railchicago, 2);
 		setRailBuffer(railboston, 3);
@@ -159,6 +143,11 @@ function initialize(){
 		getSNAP(chicagosnap, 2);
 		getSNAP(bostonsnap, 3);
 		updateLayers();
+		createPanel();
+		createLegend(map1, 1);
+		createLegend(map2, 2);
+		createLegend(map3, 3);
+
 	};
 		createMap();
 };
@@ -205,41 +194,44 @@ function changeTransportation(){
 
 	if (transportationmode == "Walk"){
 
+		map1.addLayer(WalkSeattle);
+		map2.addLayer(WalkChicago);
+		map3.addLayer(WalkBoston);
+
 		map1.removeLayer(BikeSeattle);
 		// map1.removeLayer(RailSeattle);
 		// map1.removeLayer(BusSeattle);
 		map2.removeLayer(BikeChicago);
 		map2.removeLayer(RailChicago);
 		map2.removeLayer(BusChicago);
-		// map3.removeLayer(BikeBoston);
+		map3.removeLayer(BikeBoston);
 		map3.removeLayer(RailBoston);
 		map3.removeLayer(BusBoston);
 
 	} else if (transportationmode == "Bicycle"){
 
-		map1.removeLayer(WalkSeattle);
+		map1.addLayer(WalkSeattle);
+		map1.addLayer(BikeSeattle);
+		map2.addLayer(WalkChicago);
+		map2.addLayer(BikeChicago);
+		map3.addLayer(WalkBoston);
+		map3.addLayer(BikeBoston);
+
 		// map1.removeLayer(RailSeattle);
 		// map1.removeLayer(BusSeattle);
-		map2.removeLayer(WalkChicago);
 		map2.removeLayer(RailChicago);
 		map2.removeLayer(BusChicago);
-		// map3.removeLayer(WalkBoston);
 		map3.removeLayer(RailBoston);
 		map3.removeLayer(BusBoston);
 
 	} else if (transportationmode == "Rail"){
 
-		if (RailChicago != "null"){
-			map2.addLayer(RailChicago);
-		} else if (RailSeattle == "undefined"){
-			setRailBuffer(railchicago, 2);
-		};
-
-		if (RailBoston != "null"){
-			map3.addLayer(RailBoston);
-		} else if (RailBoston == "undefined"){
-			setRailBuffer(railboston, 3);
-		};
+		map1.addLayer(WalkSeattle);
+		// map1.addLayer(RailSeattle);
+		map2.addLayer(WalkChicago);
+		map2.addLayer(RailChicago);
+		map3.addLayer(WalkBoston);
+		map3.addLayer(RailBoston);
 
 		map1.removeLayer(WalkSeattle);
 		map1.removeLayer(BikeSeattle);
@@ -247,47 +239,40 @@ function changeTransportation(){
 		map2.removeLayer(WalkChicago);
 		map2.removeLayer(BikeChicago);
 		map2.removeLayer(BusChicago);
-		// map3.removeLayer(WalkBoston);
-		// map3.removeLayer(BikeBoston);
+		map3.removeLayer(WalkBoston);
+		map3.removeLayer(BikeBoston);
 		map3.removeLayer(BusBoston);
 
 	} else if (transportationmode == "Bus"){
 
-		if (BusChicago != "null"){
-			map2.addLayer(BusChicago);
-		} else if (BusSeattle == "undefined"){
-			setBusBuffer(buschicago, 2);
-		};
+		map1.addLayer(WalkSeattle);
+		// map1.addLayer(BusSeattle);
+		map2.addLayer(WalkChicago);
+		map2.addLayer(BusChicago);
+		map3.addLayer(WalkBoston);
+		map3.addLayer(BusBoston);
 
-		if (BusBoston != "null"){
-			map3.addLayer(BusBoston);
-		} else if (BusBoston == "undefined"){
-			setBusBuffer(busboston, 3);
-		};
+		map1.removeLayer(BikeSeattle);
+		// map1.removeLayer(RailSeattle);
+		map2.removeLayer(BikeChicago);
+		map2.removeLayer(RailChicago);
+		map3.removeLayer(BikeBoston);
+		map3.removeLayer(RailBoston);
+
+	} else if (transportationmode == 'Reset'){
 
 		map1.removeLayer(WalkSeattle);
 		map1.removeLayer(BikeSeattle);
 		// map1.removeLayer(RailSeattle);
+		// map1.removeLayer(BusSeattle);
 		map2.removeLayer(WalkChicago);
 		map2.removeLayer(BikeChicago);
 		map2.removeLayer(RailChicago);
-		// map3.removeLayer(WalkBoston);
-		// map3.removeLayer(BikeBoston);
+		map2.removeLayer(BusChicago);
+		map3.removeLayer(WalkBoston);
+		map3.removeLayer(BikeBoston);
 		map3.removeLayer(RailBoston);
-
-	} else if (transportationmode == 'All Modes'){
-
-		map1.addLayer(WalkSeattle);
-		map1.addLayer(BikeSeattle);
-		// map1.addLayer(RailSeattle);
-		// map1.addLayer(BusSeattle);
-		map2.addLayer(WalkChicago);
-		map2.addLayer(BikeChicago);
-		map2.addLayer(RailChicago);
-		map2.addLayer(BusChicago);
-		// map3.addLayer(BikeBoston);
-		map3.addLayer(RailBoston);
-		map3.addLayer(BusBoston);
+		map3.removeLayer(BusBoston);
 	}
 
 };
@@ -298,27 +283,10 @@ function changeMarket(){
 	var foodmarket = e.options[e.selectedIndex].value;
 
  	if (foodmarket == "Grocery Store"){
-		if (GSSeattle != "null"){
-
-		} else if (GSSeattle == "undefined"){
-			getSNAP(seattlesnap, 1);
-		};
-
-		if (GSChicago != "null"){
-
-		} else if (GSChicago == "undefined"){
-			getSNAP(chicagosnap, 2);
-		};
-
-		if (GSBoston != "null"){
-
-		} else if (GSBoston == "undefined"){
-			getSNAP(bostonsnap, 3);
-		};
-
 		map1.addLayer(GSSeattle);
 		map2.addLayer(GSChicago);
 		map3.addLayer(GSBoston);
+
 		map1.removeLayer(SMSeattle);
 		map1.removeLayer(HMSeattle);
 		map1.removeLayer(OMSeattle);
@@ -366,25 +334,8 @@ function changeMarket(){
 		map3.removeLayer(OMBoston);
 
 	} else if (foodmarket == 'Other Markets'){
-		if (OMSeattle != "null"){
 
-		} else if (OMSeattle == "undefined"){
-			getSNAP(seattlesnap, 1);
-		};
-
-		if (OMChicago != "null"){
-
-		} else if (OMChicago == "undefined"){
-			getSNAP(chicagosnap, 2);
-		};
-
-		if (OMBoston != "null"){
-
-		} else if (OMBoston == "undefined"){
-			getSNAP(bostonsnap, 3);
-		};
-
-		// Adding Hypermarket layers for all of the maps
+		// Adding Other Markets layers for all of the maps
 		map1.addLayer(OMSeattle);
 		map2.addLayer(OMChicago);
 		map3.addLayer(OMBoston);
@@ -399,7 +350,7 @@ function changeMarket(){
 		map3.removeLayer(GSBoston);
 		map3.removeLayer(SMBoston);
 		map3.removeLayer(HMBoston);
-		
+
 	} else if (foodmarket == "All Food Retail Markets"){
 
 		map1.addLayer(GSSeattle);
@@ -414,6 +365,21 @@ function changeMarket(){
 		map3.addLayer(SMBoston);
 		map3.addLayer(HMBoston);
 		map3.addLayer(OMBoston);
+
+	} else if (foodmarket == "Reset"){
+
+		map1.removeLayer(GSSeattle);
+		map1.removeLayer(SMSeattle);
+		map1.removeLayer(HMSeattle);
+		map1.removeLayer(OMSeattle);
+		map2.removeLayer(GSChicago);
+		map2.removeLayer(SMChicago);
+		map2.removeLayer(HMChicago);
+		map2.removeLayer(OMChicago);
+		map3.removeLayer(GSBoston);
+		map3.removeLayer(SMBoston);
+		map3.removeLayer(HMBoston);
+		map3.removeLayer(OMBoston);
 	};
 };
 // Creating a funcion for the colors based upon natural breaks and city
@@ -721,6 +687,38 @@ function setBusBuffer(data, n){
 			BusSeattle.addTo(map1);
 			console.log(BusSeattle);
 	}
+};
+
+function createLegend(map, n){
+	var LegendControl = L.Control.extend({
+		options: {
+			position: 'bottomright'
+		},
+
+		onAdd: function(map){
+			// Creating a container for the legend control
+			var container = L.DomUtil.create('div', 'legend-control-container');
+			$(container).append('<div id = "legend-control-container">');
+
+			var svg = '<svg id="attribute-legend" width="220px" height="90px">';
+
+			$(container).append(svg);
+
+			return container;
+		}
+	});
+
+	if (n == 3){
+		map3.addControl(new LegendControl())
+	} else if (n == 2){
+		map2.addControl(new LegendControl())
+	} else if (n == 1){
+		map1.addControl(new LegendControl())
+	};
+};
+
+function createPanel(){
+	$('#panel').append("This is where there is either a description of the interface and/or bar chart")
 };
 
 $(document).ready(initialize);

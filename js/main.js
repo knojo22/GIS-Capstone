@@ -1,6 +1,3 @@
-var map1;
-var map2;
-var map3;
 
 var walkbufferStyle = {
 	"fillColor": "#807dba",
@@ -66,24 +63,24 @@ function initialize(){
 		// busing = {};
 
 		console.log(error);
-		console.log(walkseattle);
-		console.log(walkchicago);
-		console.log(walkboston);
-		console.log(bikeseattle);
-		console.log(bikechicago);
-		console.log(bikeboston);
-		// console.log(railseattle);
-		console.log(railchicago);
-		console.log(railboston);
-		// console.log(busseattle);
-		console.log(buschicago);
-		console.log(busboston);
-		console.log(seattlesnap);
-		console.log(chicagosnap);
-		console.log(bostonsnap);
-		console.log(seattlect);
-		console.log(chicagoct);
-		console.log(bostonct);
+		// console.log(walkseattle);
+		// console.log(walkchicago);
+		// console.log(walkboston);
+		// console.log(bikeseattle);
+		// console.log(bikechicago);
+		// console.log(bikeboston);
+		// // console.log(railseattle);
+		// console.log(railchicago);
+		// console.log(railboston);
+		// // console.log(busseattle);
+		// console.log(buschicago);
+		// console.log(busboston);
+		// console.log(seattlesnap);
+		// console.log(chicagosnap);
+		// console.log(bostonsnap);
+		// console.log(seattlect);
+		// console.log(chicagoct);
+		// console.log(bostonct);
 
 
 		var Seattle_CT = L.geoJson(seattlect, {
@@ -188,6 +185,7 @@ function updateLayers(){
 	changeTransportation();
 	changeMarket();
 };
+
 function changeTransportation(){
 	var e = document.getElementById("modechoice");
 	var transportationmode = e.options[e.selectedIndex].value;
@@ -407,7 +405,10 @@ function getCTColorBoston(d){
 										 "#969696";
 };
 
+// Creating a function to generate the retail food market locations that accept SNAP
 function getSNAP(data, n){
+	/* Creating the grocery store (GS), supermarket (SM), hypermarket (HM) and other market (OM) layers
+	for each urban community and applying the points to the respective maps */
 	if (n == 3){
 		var attributes = processData(data);
 
@@ -598,6 +599,8 @@ function getSNAP(data, n){
 		};
 };
 
+/* Creating a function to generate the walking buffers for each of the urban communities
+with respect to retail food market locations */
 function setWalkBuffer(data, n){
 	if (n == 3){
 		// map3.removeLayer(WalkBoston);
@@ -620,6 +623,8 @@ function setWalkBuffer(data, n){
 	};
 };
 
+/* Creating a function to generate the bicycling buffers for each of the urban communities
+with respect to retail food market locations */
 function setBikeBuffer(data, n){
 	if (n == 3){
 		// map3.removeLayer(BikeBoston);
@@ -642,6 +647,8 @@ function setBikeBuffer(data, n){
 	}
 };
 
+/* Creating a function to generate the rail service areas for each of the urban communities
+with respect to walking distances from the rail stations */
 function setRailBuffer(data, n){
 	if (n == 3){
 		// map3.removeLayer(RailBoston);
@@ -664,6 +671,8 @@ function setRailBuffer(data, n){
 	}
 };
 
+/* Creating a function to generate the bus service areas for each of the urban communities
+with respect to walking distances from the bus stops */
 function setBusBuffer(data, n){
 	if (n == 3){
 		// map3.removeLayer(BusBoston);
@@ -689,6 +698,9 @@ function setBusBuffer(data, n){
 	}
 };
 
+
+/* Creating a legend for each map to visualize the color scale for the PCA scores that
+were generated from the census tract demographic factors defined by USDA Food Environment Atlas */
 function createLegend(map, n){
 	var LegendControl = L.Control.extend({
 		options: {
@@ -700,7 +712,7 @@ function createLegend(map, n){
 			var container = L.DomUtil.create('div', 'legend-control-container');
 			$(container).append('<div id = "legend-control-container">');
 
-			var svg = '<svg id="attribute-legend" width="220px" height="90px">';
+			var svg = '<svg id="attribute-legend" width="100px" height="150px">';
 
 			$(container).append(svg);
 
@@ -718,7 +730,8 @@ function createLegend(map, n){
 };
 
 function createPanel(){
-	$('#panel').append("This is where there is either a description of the interface and/or bar chart")
+	var content = "The purpose of the interactive map is to compare food access areas by different mode choices (Walk, Bicycle, Rail and Bus) and different food markets (Grocery Stores, Supermarkets, Hypermarkets and Other Markets) for different cities across the United States.";
+	$('#panel').append(content);
 };
 
 $(document).ready(initialize);

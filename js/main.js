@@ -383,26 +383,24 @@ function changeMarket(){
 // Creating a funcion for the colors based upon natural breaks and city
 function getCTColorSeattle(d){
 	return d > 2.565 ? "#993404":
-				 d > 1.077 && d <= 2.565 ? "#d95f0e":
-				 d > -0.411 && d <= 1.077 ? "#fe9929":
-				 d <= -0.411 ? "#fed98e":
-								 "#969696";
+				 d > 1.077 ? "#d95f0e":
+				 d > -0.411  ? "#fe9929":
+								 	"#fed98e";
 };
 
 function getCTColorChicago(d){
-	return d >= 3.65 ? "#993404":
-				 d >= 0.71 && d < 3.65 ? "#d95f0e":
-				 d >= -0.91 && d < 0.71 ? "#fe9929":
-				 d < -0.91 ? "#fed98e":
-										 "#969696";
+	return d > 3.65 ? "#993404":
+				 d > 0.71 ? "#d95f0e":
+				 d > -0.91 ? "#fe9929":
+				  					"#fed98e";
+
 };
 
 function getCTColorBoston(d){
-	return d >= 2.69 ? "#993404":
-				 d >= 0.56 && d < 2.69 ? "#d95f0e":
-				 d >= -1.42 && d < 0.56 ? "#fe9929":
-				 d < -1.42 ? "#fed98e":
-										 "#969696";
+	return d > 2.69 ? "#993404":
+				 d > 0.56  ? "#d95f0e":
+				 d > -1.42 ? "#fe9929":
+				 						"#fed98e";
 };
 
 // Creating a function to generate the retail food market locations that accept SNAP
@@ -710,13 +708,28 @@ function createLegend(map, n){
 		onAdd: function(map){
 			// Creating a container for the legend control
 			var container = L.DomUtil.create('div', 'legend-control-container');
-			$(container).append('<div id = "legend-control-container">');
+				pcaboston = [-5,-1.42,0.56,2.69],
+				pcachicago = [-5,-0.91,0.71,3.65],
+				pcaseattle = [-5, -0.41, 1.08, 2.56],
+				labels = [];
 
-			var svg = '<svg id="attribute-legend" width="100px" height="150px">';
-
-			$(container).append(svg);
-
-			return container;
+			if (n == 3){
+				for (var i = 0; i < pcaboston.length; i++){
+					container.innerHTML += '<i style="background:' + getCTColorBoston(pcaboston[i]+1) + '"></i> ' + pcaboston[i] + (pcaboston[i+1]? '&ndash;' + pcaboston[i+1]+'<br>' : '+');
+				}
+				console.log(getCTColorBoston(pcaboston[i+1]))
+				return container;
+			} else if (n == 2){
+				for (var i = 0; i < pcachicago.length; i++){
+					container.innerHTML += '<i style="background:' + getCTColorChicago(pcachicago[i+1]) + '"></i> ' + pcachicago[i] + (pcachicago[i+1]? '&ndash;' + pcachicago[i+1]+'<br>' : '+');
+				}
+				return container;
+			} else if (n == 1){
+				for (var i = 0; i < pcaseattle.length; i++){
+					container.innerHTML += '<i style="background:' + getCTColorSeattle(pcaseattle[i+1]) + '"></i> ' + pcaseattle[i] + (pcaseattle[i+1]? '&ndash;' + pcaseattle[i+1]+'<br>' : '+');
+				}
+				return container;
+			}
 		}
 	});
 

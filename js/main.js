@@ -91,7 +91,7 @@ function initialize(){
 					"color": "#999",
 					"weight": 0.5,
 					"fillColor": getCTColorSeattle(feature.properties[attribute]),
-					"fillopacity": 5
+					"fillOpacity": 0.7
 				};
 			}
 		}).addTo(map1);
@@ -104,7 +104,7 @@ function initialize(){
 					"color": "#999",
 					"weight": 0.5,
 					"fillColor": getCTColorChicago(feature.properties[attribute]),
-					"fillopacity": 5
+					"fillOpacity": 0.7
 				};
 			}
 		}).addTo(map2);
@@ -117,7 +117,7 @@ function initialize(){
 					"color": "#999",
 					"weight": 0.5,
 					"fillColor": getCTColorBoston(feature.properties[attribute]),
-					"fillopacity": 5
+					"fillOpacity": 0.7
 				};
 			}
 		}).addTo(map3);
@@ -678,24 +678,20 @@ function setBusBuffer(data, n){
 				style: busbufferStyle
 			});
 			BusBoston.addTo(map3);
-			console.log(BusBoston);
 	} else if  (n == 2){
 		// map2.removeLayer(BusChicago);
 		BusChicago = L.geoJson(data, {
 				style: busbufferStyle
 			});
 			BusChicago.addTo(map2);
-			console.log(BusChicago);
 	} else if (n == 1){
 		// map1.removeLayer(BusSeattle);
 		BusSeattle = L.geoJson(data, {
 				style: busbufferStyle
 			});
 			BusSeattle.addTo(map1);
-			console.log(BusSeattle);
 	}
 };
-
 
 /* Creating a legend for each map to visualize the color scale for the PCA scores that
 were generated from the census tract demographic factors defined by USDA Food Environment Atlas */
@@ -713,20 +709,21 @@ function createLegend(map, n){
 				pcaseattle = [-5, -0.41, 1.08, 2.56],
 				labels = [];
 
+				container.innerHTML += '<b> PCA Scoring Range</b><br>'
+
 			if (n == 3){
 				for (var i = 0; i < pcaboston.length; i++){
-					container.innerHTML += '<i style="background:' + getCTColorBoston(pcaboston[i]+1) + '"></i> ' + pcaboston[i] + (pcaboston[i+1]? '&ndash;' + pcaboston[i+1]+'<br>' : '+');
+					container.innerHTML += '<i style="background:' + getCTColorBoston(pcaboston[i]) + '"></i> ' + pcaboston[i] + (pcaboston[i+1]? '&ndash;' + pcaboston[i+1]+'<br>' : '+');
 				}
-				console.log(getCTColorBoston(pcaboston[i+1]))
 				return container;
 			} else if (n == 2){
 				for (var i = 0; i < pcachicago.length; i++){
-					container.innerHTML += '<i style="background:' + getCTColorChicago(pcachicago[i+1]) + '"></i> ' + pcachicago[i] + (pcachicago[i+1]? '&ndash;' + pcachicago[i+1]+'<br>' : '+');
+					container.innerHTML += '<i style="background:' + getCTColorChicago(pcachicago[i]) + '"></i> ' + pcachicago[i] + (pcachicago[i+1]? '&ndash;' + pcachicago[i+1]+'<br>' : '+');
 				}
 				return container;
 			} else if (n == 1){
 				for (var i = 0; i < pcaseattle.length; i++){
-					container.innerHTML += '<i style="background:' + getCTColorSeattle(pcaseattle[i+1]) + '"></i> ' + pcaseattle[i] + (pcaseattle[i+1]? '&ndash;' + pcaseattle[i+1]+'<br>' : '+');
+					container.innerHTML += '<i style="background:' + getCTColorSeattle(pcaseattle[i]) + '"></i> ' + pcaseattle[i] + (pcaseattle[i+1]? '&ndash;' + pcaseattle[i+1]+'<br>' : '+');
 				}
 				return container;
 			}
@@ -743,7 +740,7 @@ function createLegend(map, n){
 };
 
 function createPanel(){
-	var content = "The purpose of the interactive map is to compare food access areas by different mode choices (Walk, Bicycle, Rail and Bus) and different food markets (Grocery Stores, Supermarkets, Hypermarkets and Other Markets) for different cities across the United States.";
+	var content = "<p>The purpose of the interactive map is to compare food access areas by different mode choices (Walk, Bicycle, Rail and Bus) and different food markets (Grocery Stores, Supermarkets, Hypermarkets and Other Markets) for different cities across the United States.</p><p>The PCA Scoring Range is comprised of five main factors that the USDA Food Environment Atlas uses to evaluate demographic characteristics for food accessibility (Population, Low-Income, Age (Children, Seniors) and No Household Vehicle Availability). The score reflect the variation between the census tracts in the state therefore represent different ranges per urban area.</p>";
 	$('#panel').append(content);
 };
 

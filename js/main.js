@@ -91,7 +91,7 @@ function initialize(){
 					"color": "#999",
 					"weight": 0.5,
 					"fillColor": getCTColorSeattle(feature.properties[attribute]),
-					"fillopacity": 5
+					"fillOpacity": 0.7
 				};
 			}
 		}).addTo(map1);
@@ -104,7 +104,7 @@ function initialize(){
 					"color": "#999",
 					"weight": 0.5,
 					"fillColor": getCTColorChicago(feature.properties[attribute]),
-					"fillopacity": 5
+					"fillOpacity": 0.7
 				};
 			}
 		}).addTo(map2);
@@ -117,7 +117,7 @@ function initialize(){
 					"color": "#999",
 					"weight": 0.5,
 					"fillColor": getCTColorBoston(feature.properties[attribute]),
-					"fillopacity": 5
+					"fillOpacity": 0.7
 				};
 			}
 		}).addTo(map3);
@@ -383,26 +383,24 @@ function changeMarket(){
 // Creating a funcion for the colors based upon natural breaks and city
 function getCTColorSeattle(d){
 	return d > 2.565 ? "#993404":
-				 d > 1.077 && d <= 2.565 ? "#d95f0e":
-				 d > -0.411 && d <= 1.077 ? "#fe9929":
-				 d <= -0.411 ? "#fed98e":
-								 "#969696";
+				 d > 1.077 ? "#d95f0e":
+				 d > -0.411  ? "#fe9929":
+								 	"#fed98e";
 };
 
 function getCTColorChicago(d){
-	return d >= 3.65 ? "#993404":
-				 d >= 0.71 && d < 3.65 ? "#d95f0e":
-				 d >= -0.91 && d < 0.71 ? "#fe9929":
-				 d < -0.91 ? "#fed98e":
-										 "#969696";
+	return d > 3.65 ? "#993404":
+				 d > 0.71 ? "#d95f0e":
+				 d > -0.91 ? "#fe9929":
+				  					"#fed98e";
+
 };
 
 function getCTColorBoston(d){
-	return d >= 2.69 ? "#993404":
-				 d >= 0.56 && d < 2.69 ? "#d95f0e":
-				 d >= -1.42 && d < 0.56 ? "#fe9929":
-				 d < -1.42 ? "#fed98e":
-										 "#969696";
+	return d > 2.69 ? "#993404":
+				 d > 0.56  ? "#d95f0e":
+				 d > -1.42 ? "#fe9929":
+				 						"#fed98e";
 };
 
 // Creating a function to generate the retail food market locations that accept SNAP
@@ -680,24 +678,20 @@ function setBusBuffer(data, n){
 				style: busbufferStyle
 			});
 			BusBoston.addTo(map3);
-			console.log(BusBoston);
 	} else if  (n == 2){
 		// map2.removeLayer(BusChicago);
 		BusChicago = L.geoJson(data, {
 				style: busbufferStyle
 			});
 			BusChicago.addTo(map2);
-			console.log(BusChicago);
 	} else if (n == 1){
 		// map1.removeLayer(BusSeattle);
 		BusSeattle = L.geoJson(data, {
 				style: busbufferStyle
 			});
 			BusSeattle.addTo(map1);
-			console.log(BusSeattle);
 	}
 };
-
 
 /* Creating a legend for each map to visualize the color scale for the PCA scores that
 were generated from the census tract demographic factors defined by USDA Food Environment Atlas */
@@ -710,13 +704,29 @@ function createLegend(map, n){
 		onAdd: function(map){
 			// Creating a container for the legend control
 			var container = L.DomUtil.create('div', 'legend-control-container');
-			$(container).append('<div id = "legend-control-container">');
+				pcaboston = [-5,-1.42,0.56,2.69],
+				pcachicago = [-5,-0.91,0.71,3.65],
+				pcaseattle = [-5, -0.41, 1.08, 2.56],
+				labels = [];
 
-			var svg = '<svg id="attribute-legend" width="100px" height="150px">';
+				container.innerHTML += '<b> PCA Scoring Range</b><br>'
 
-			$(container).append(svg);
-
-			return container;
+			if (n == 3){
+				for (var i = 0; i < pcaboston.length; i++){
+					container.innerHTML += '<i style="background:' + getCTColorBoston(pcaboston[i]) + '"></i> ' + pcaboston[i] + (pcaboston[i+1]? '&ndash;' + pcaboston[i+1]+'<br>' : '+');
+				}
+				return container;
+			} else if (n == 2){
+				for (var i = 0; i < pcachicago.length; i++){
+					container.innerHTML += '<i style="background:' + getCTColorChicago(pcachicago[i]) + '"></i> ' + pcachicago[i] + (pcachicago[i+1]? '&ndash;' + pcachicago[i+1]+'<br>' : '+');
+				}
+				return container;
+			} else if (n == 1){
+				for (var i = 0; i < pcaseattle.length; i++){
+					container.innerHTML += '<i style="background:' + getCTColorSeattle(pcaseattle[i]) + '"></i> ' + pcaseattle[i] + (pcaseattle[i+1]? '&ndash;' + pcaseattle[i+1]+'<br>' : '+');
+				}
+				return container;
+			}
 		}
 	});
 
@@ -730,7 +740,7 @@ function createLegend(map, n){
 };
 
 function createPanel(){
-	var content = "The purpose of the interactive map is to compare food access areas by different mode choices (Walk, Bicycle, Rail and Bus) and different food markets (Grocery Stores, Supermarkets, Hypermarkets and Other Markets) for different cities across the United States.";
+	var content = "<p>The purpose of the interactive map is to compare food access areas by different mode choices (Walk, Bicycle, Rail and Bus) and different food markets (Grocery Stores, Supermarkets, Hypermarkets and Other Markets) for different cities across the United States.</p><p>The PCA Scoring Range is comprised of five main factors that the USDA Food Environment Atlas uses to evaluate demographic characteristics for food accessibility (Population, Low-Income, Age (Children, Seniors) and No Household Vehicle Availability). The score reflect the variation between the census tracts in the state therefore represent different ranges per urban area.</p>";
 	$('#panel').append(content);
 };
 

@@ -8,6 +8,7 @@
 		<!--put your external stylesheet links here-->
 		<link rel="stylesheet" href="css/leaflet.css" />
 		<link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
 	</head>
 		<h1>Food Access Analysis by Alternative Transportation Mode Choices</h1>
@@ -17,6 +18,7 @@
 		<!-- <form>
 			<label for = "modechoice_menu">Please Select Mode of Transportation: </label> -->
 	</div>
+	<h5> Select Transportation Mode Choice: </h5>
 		<div id='modechoice_menu'>
 			<select id='modechoice' onChange="changeTransportation()">
 				<option value='Reset'>Transportation Mode Choices</option>
@@ -26,6 +28,7 @@
 				<option value='Bus'>Bus</option>
 			</select>
 		</div>
+		<h5> Select Retail Food Market: </h5>
 		<div id='foodmarket_menu'>
 			<select id='foodmarket' onChange = "changeMarket()">
 				<option value='Reset'>Food Retail Markets</option>
@@ -36,6 +39,7 @@
 				<option value='All Food Retail Markets'>All Food Retail Markets</option>
 			</select>
 		</div>
+		<p>
 		<div id="mapid"></div>
 		<div id="mapid2"></div>
 		<div id="mapid3"></div>

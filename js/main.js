@@ -207,7 +207,6 @@ function changeTransportation(){
 		map3.addLayer(WalkBoston);
 		map3.addLayer(RailBoston);
 
-		map1.removeLayer(WalkSeattle);
 		map1.removeLayer(BikeSeattle);
 		map1.removeLayer(BusSeattle);
 		map2.removeLayer(BikeChicago);
@@ -356,25 +355,27 @@ function changeMarket(){
 };
 // Creating a funcion for the colors based upon natural breaks and city
 function getCTColorSeattle(d){
-	return d > 2.565 ? "#993404":
-				 d > 1.077 ? "#d95f0e":
-				 d > -0.411  ? "#fe9929":
-								 	"#fed98e";
+	return d > 3.08 ? "#d7301f":
+				 d > 1.30 ? "#fc8d59":
+				 d > -0.49  ? "#fdd49e":
+				 							"#fff7ec";
 };
 
 function getCTColorChicago(d){
-	return d > 3.65 ? "#993404":
-				 d > 0.71 ? "#d95f0e":
-				 d > -0.91 ? "#fe9929":
-				  					"#fed98e";
+	return d > 4.02 ? "#d7301f":
+				 d > 1.91 ? "#fc8d59":
+				 d > -0.07 ? "#fdd49e":
+				 						"#fff7ec";
+
 
 };
 
 function getCTColorBoston(d){
-	return d > 2.69 ? "#993404":
-				 d > 0.56  ? "#d95f0e":
-				 d > -1.42 ? "#fe9929":
-				 						"#fed98e";
+	return d > 3.25 ? "#d7301f":
+				 d > 1.50  ? "#fc8d59":
+				 d > -0.37 ? "#fdd49e":
+				 						"#fff7ec";
+
 };
 
 // Creating a function to generate the retail food market locations that accept SNAP
@@ -678,26 +679,27 @@ function createLegend(map, n){
 		onAdd: function(map){
 			// Creating a container for the legend control
 			var container = L.DomUtil.create('div', 'legend-control-container');
-				pcaboston = [-5,-1.42,0.56,2.69],
-				pcachicago = [-5,-0.91,0.71,3.65],
-				pcaseattle = [-5, -0.41, 1.08, 2.56],
+				pcaboston = [-1.73,-0.37, 1.50, 3.25],
+				pcachicago = [-1.50,-0.07,1.91,4.02],
+				pcaseattle = [-1.90,-0.49, 1.30, 3.08],
 				labels = [];
 
 				container.innerHTML += '<b> PCA Scoring Range</b><br>'
 
 			if (n == 3){
 				for (var i = 0; i < pcaboston.length; i++){
-					container.innerHTML += '<i style="background:' + getCTColorBoston(pcaboston[i]) + '"></i> ' + pcaboston[i] + (pcaboston[i+1]? '&ndash;' + pcaboston[i+1]+'<br>' : '+');
+					container.innerHTML += '<i style="background:' + getCTColorBoston(pcaboston[i]+1) + '"></i> ' + pcaboston[i] + (pcaboston[i+1]? " " + '&ndash;' + " " + pcaboston[i+1]+'<br>' : '+');
 				}
+				console.log(getCTColorBoston(pcaboston[0]));
 				return container;
 			} else if (n == 2){
 				for (var i = 0; i < pcachicago.length; i++){
-					container.innerHTML += '<i style="background:' + getCTColorChicago(pcachicago[i]) + '"></i> ' + pcachicago[i] + (pcachicago[i+1]? '&ndash;' + pcachicago[i+1]+'<br>' : '+');
+					container.innerHTML += '<i style="background:' + getCTColorChicago(pcachicago[i]+1) + '"></i> ' + pcachicago[i] + (pcachicago[i+1]? " " + '&ndash;' + " " + pcachicago[i+1]+'<br>' : '+');
 				}
 				return container;
 			} else if (n == 1){
 				for (var i = 0; i < pcaseattle.length; i++){
-					container.innerHTML += '<i style="background:' + getCTColorSeattle(pcaseattle[i]) + '"></i> ' + pcaseattle[i] + (pcaseattle[i+1]? '&ndash;' + pcaseattle[i+1]+'<br>' : '+');
+					container.innerHTML += '<i style="background:' + getCTColorSeattle(pcaseattle[i]+1) + '"></i> ' + pcaseattle[i] + (pcaseattle[i+1]? " " + '&ndash;' + " " + pcaseattle[i+1]+'<br>' : '+');
 				}
 				return container;
 			}
@@ -714,7 +716,7 @@ function createLegend(map, n){
 };
 
 function createPanel(){
-	var content = "<p>The purpose of the interactive map is to compare food access areas by different mode choices (Walk, Bicycle, Rail and Bus) and different food markets (Grocery Stores, Supermarkets, Hypermarkets and Other Markets) for different cities across the United States.</p><p>The PCA Scoring Range is comprised of five main factors that the USDA Food Environment Atlas uses to evaluate demographic characteristics for food accessibility (Population, Low-Income, Age (Children, Seniors) and No Household Vehicle Availability). The score reflect the variation between the census tracts in the state therefore represent different ranges per urban area.</p>";
+	var content = "<p>The purpose of the interactive map is to compare food access areas by different mode choices (Walk, Bicycle, Rail and Bus) and different food markets (Grocery Stores, Supermarkets, Hypermarkets and Other Markets) for different cities across the United States.</p><p>The Principal Compoent Analysis (PCA) Scoring Range is comprised of five main factors that the USDA Food Environment Atlas uses to evaluate demographic characteristics for food accessibility (Population, Low-Income, Age (Children, Seniors) and No Household Vehicle Availability). The scores reflect variation between the census tracts in the state, which is reflected in the different ranges per urban area. The higher the score is for the census tract, the greater the concern is for food accessibility in the area. </p>";
 	$('#panel').append(content);
 };
 

@@ -4,7 +4,7 @@ h1 {
   padding-top: 10px;
   text-transform: uppercase;
   text-align: center;
-  font-family:"Times New Roman", Helvetica, sans-serif;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
   background-color: #bdbdbd;
   color: black;
 }
@@ -14,7 +14,7 @@ h2 {
   padding-top: 10px;
   text-transform: uppercase;
   text-align: center;
-  font-family:"Times New Roman", Helvetica, sans-serif;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
   background-color: #bdbdbd;
   color: black;
 }
@@ -24,7 +24,19 @@ h3 {
   padding-top: 10px;
   width: 1000px;
   text-transform: uppercase;
-  font-family:"Times New Roman", Helvetica, sans-serif;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
+  background-color: #bdbdbd;
+  color: black;
+}
+
+h5 {
+  font-size: 12px;
+  padding-top: 10px;
+  width: 230px;
+  display: inline-block;
+  vertical-align: text-top;
+  text-transform: uppercase;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
   background-color: #bdbdbd;
   color: black;
 }
@@ -64,23 +76,31 @@ body{
 }
 
 #modechoice_menu{
-  position: absolute;
-  top: 65px;
-  left: 10px;
+  position: relative;
+  display: inline-block;
+  width: 196px;
+  top: 27px;
+  left: -5px;
   z-index: 9000;
-  font-family:"Times New Roman", Helvetica, sans-serif;
-  border: 1px solid #999;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
+  font-weight: bold;
+  border: 2px solid #999;
   box-shadow: 2px 2px 4px #999;
+  border-radius: 5px;
 }
 
 #foodmarket_menu{
-  position: absolute;
-  top: 65px;
-  left: 215px;
+  position: relative;
+  display: inline-block;
+  width: 162px;
+  top: 27px;
+  left: -60px;
   z-index: 9000;
-  font-family:"Times New Roman", Helvetica, sans-serif;
-  border: 1px solid #999;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
+  font-weight: bold;
+  border: 2px solid #999;
   box-shadow: 2px 2px 4px #999;
+  border-radius: 5px;
 }
 
 #panel {
@@ -92,11 +112,10 @@ body{
   padding: 20px;
   border: 3px solid #999;
   background-color: rgba(255,255,255,0.8);
-  font-family:"Times New Roman", Helvetica, sans-serif;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
   font-size: 15px;
   font-weight: bold;
   text-align: left;
-  text-transform: uppercase;
   vertical-align: top;
 }
 
@@ -105,11 +124,10 @@ body{
   height: 120px;
   background-color: rgba(255,255,255,0.8);
   padding: 5px;
-  font-family:"Times New Roman", Helvetica, sans-serif;
+  font-family:"Trebuchet MS", Helvetica, sans-serif;
   font-size: 12px;
   font-weight: bold;
   text-align: left;
-  text-transform: uppercase;
   border: solid grey 2px;
   border-radius: 10px;
   line-height: 20px;

@@ -40,10 +40,10 @@ function initialize(){
 		.defer(d3.json, "data/Seattle_BicycleBuffer.geojson")
 		.defer(d3.json, "data/Chicago_BicycleBuffer.geojson")
 		.defer(d3.json, "data/Boston_BicycleBuffer.geojson")
-		// .defer(d3.json, "data/Seattle_RailBuffer.geojson")
+		.defer(d3.json, "data/Seattle_RailBuffer.geojson")
 		.defer(d3.json, "data/Chicago_RailBuffer.geojson")
 		.defer(d3.json, "data/Boston_RailBuffer.geojson")
-		// .defer(d3.json, "data/Seattle_BusBuffer.geojson")
+		.defer(d3.json, "data/Seattle_BusBuffer.geojson")
 		.defer(d3.json, "data/Chicago_BusBuffer.geojson")
 		.defer(d3.json, "data/Boston_BusBuffer.geojson")
 		.defer(d3.json, "data/Seattle_SNAPFoodRetail.geojson")
@@ -54,8 +54,8 @@ function initialize(){
 		.defer(d3.json, "data/Boston_CT.geojson")
 		.await(callback);
 
-	function callback(error, walkseattle, walkchicago, walkboston, bikeseattle, bikechicago, bikeboston,
-		railchicago, railboston, buschicago, busboston, seattlesnap, chicagosnap, bostonsnap, seattlect, chicagoct, bostonct, attribute){
+	function callback(error, walkseattle, walkchicago, walkboston, bikeseattle, bikechicago, bikeboston, railseattle,
+		railchicago, railboston, busseattle, buschicago, busboston, seattlesnap, chicagosnap, bostonsnap, seattlect, chicagoct, bostonct, attribute){
 
 		console.log(error);
 
@@ -106,10 +106,10 @@ function initialize(){
 		setBikeBuffer(bikeseattle, 1);
 		setBikeBuffer(bikechicago, 2);
 		setBikeBuffer(bikeboston, 3);
-		// setRailBuffer(railseattle, 1);
+		setRailBuffer(railseattle, 1);
 		setRailBuffer(railchicago, 2);
 		setRailBuffer(railboston, 3);
-		// setBusBuffer(busseattle, 1);
+		setBusBuffer(busseattle, 1);
 		setBusBuffer(buschicago, 2);
 		setBusBuffer(busboston, 3);
 		getSNAP(seattlesnap, 1);
@@ -173,8 +173,8 @@ function changeTransportation(){
 		map3.addLayer(WalkBoston);
 
 		map1.removeLayer(BikeSeattle);
-		// map1.removeLayer(RailSeattle);
-		// map1.removeLayer(BusSeattle);
+		map1.removeLayer(RailSeattle);
+		map1.removeLayer(BusSeattle);
 		map2.removeLayer(BikeChicago);
 		map2.removeLayer(RailChicago);
 		map2.removeLayer(BusChicago);
@@ -191,8 +191,8 @@ function changeTransportation(){
 		map3.addLayer(WalkBoston);
 		map3.addLayer(BikeBoston);
 
-		// map1.removeLayer(RailSeattle);
-		// map1.removeLayer(BusSeattle);
+		map1.removeLayer(RailSeattle);
+		map1.removeLayer(BusSeattle);
 		map2.removeLayer(RailChicago);
 		map2.removeLayer(BusChicago);
 		map3.removeLayer(RailBoston);
@@ -201,7 +201,7 @@ function changeTransportation(){
 	} else if (transportationmode == "Rail"){
 
 		map1.addLayer(WalkSeattle);
-		// map1.addLayer(RailSeattle);
+		map1.addLayer(RailSeattle);
 		map2.addLayer(WalkChicago);
 		map2.addLayer(RailChicago);
 		map3.addLayer(WalkBoston);
@@ -209,7 +209,7 @@ function changeTransportation(){
 
 		map1.removeLayer(WalkSeattle);
 		map1.removeLayer(BikeSeattle);
-		// map1.removeLayer(BusSeattle);
+		map1.removeLayer(BusSeattle);
 		map2.removeLayer(BikeChicago);
 		map2.removeLayer(BusChicago);
 		map3.removeLayer(BikeBoston);
@@ -218,14 +218,14 @@ function changeTransportation(){
 	} else if (transportationmode == "Bus"){
 
 		map1.addLayer(WalkSeattle);
-		// map1.addLayer(BusSeattle);
+		map1.addLayer(BusSeattle);
 		map2.addLayer(WalkChicago);
 		map2.addLayer(BusChicago);
 		map3.addLayer(WalkBoston);
 		map3.addLayer(BusBoston);
 
 		map1.removeLayer(BikeSeattle);
-		// map1.removeLayer(RailSeattle);
+		map1.removeLayer(RailSeattle);
 		map2.removeLayer(BikeChicago);
 		map2.removeLayer(RailChicago);
 		map3.removeLayer(BikeBoston);
@@ -235,8 +235,8 @@ function changeTransportation(){
 
 		map1.removeLayer(WalkSeattle);
 		map1.removeLayer(BikeSeattle);
-		// map1.removeLayer(RailSeattle);
-		// map1.removeLayer(BusSeattle);
+		map1.removeLayer(RailSeattle);
+		map1.removeLayer(BusSeattle);
 		map2.removeLayer(WalkChicago);
 		map2.removeLayer(BikeChicago);
 		map2.removeLayer(RailChicago);

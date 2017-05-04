@@ -56,32 +56,8 @@ function initialize(){
 
 	function callback(error, walkseattle, walkchicago, walkboston, bikeseattle, bikechicago, bikeboston,
 		railchicago, railboston, buschicago, busboston, seattlesnap, chicagosnap, bostonsnap, seattlect, chicagoct, bostonct, attribute){
-		// cts = {};
-		// walking = {};
-		// bicycling = {};
-		// railing = {};
-		// busing = {};
 
 		console.log(error);
-		// console.log(walkseattle);
-		// console.log(walkchicago);
-		// console.log(walkboston);
-		// console.log(bikeseattle);
-		// console.log(bikechicago);
-		// console.log(bikeboston);
-		// // console.log(railseattle);
-		// console.log(railchicago);
-		// console.log(railboston);
-		// // console.log(busseattle);
-		// console.log(buschicago);
-		// console.log(busboston);
-		// console.log(seattlesnap);
-		// console.log(chicagosnap);
-		// console.log(bostonsnap);
-		// console.log(seattlect);
-		// console.log(chicagoct);
-		// console.log(bostonct);
-
 
 		var Seattle_CT = L.geoJson(seattlect, {
 			style: function(feature){
@@ -234,10 +210,8 @@ function changeTransportation(){
 		map1.removeLayer(WalkSeattle);
 		map1.removeLayer(BikeSeattle);
 		// map1.removeLayer(BusSeattle);
-		map2.removeLayer(WalkChicago);
 		map2.removeLayer(BikeChicago);
 		map2.removeLayer(BusChicago);
-		map3.removeLayer(WalkBoston);
 		map3.removeLayer(BikeBoston);
 		map3.removeLayer(BusBoston);
 

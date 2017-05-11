@@ -8,43 +8,44 @@
 		<!--put your external stylesheet links here-->
 		<link rel="stylesheet" href="css/leaflet.css" />
 		<link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
 	</head>
-		<h1>Food Access Analysis by Alternative Transportation Mode Choices</h1>
-		<h2>Author: Jon Fok (University of Wisconsin-Madison GIS Cert Capstone Project)</h2>
+		<h1>Food Access Analysis by Alternative Transportation Mode Choices
+			<h2>Jon Fok (University of Wisconsin-Madison GIS Cert Capstone Project)</h2>
+		</h1>
 		<!-- <h3><p></p></h3> -->
 	<body>
 		<!-- <form>
 			<label for = "modechoice_menu">Please Select Mode of Transportation: </label> -->
-	</div>
-	<h5> Select Transportation Mode Choice: </h5>
-		<div id='modechoice_menu'>
-			<select id='modechoice' onChange="changeTransportation()">
-				<option value='Reset'>Transportation Mode Choices</option>
-				<option value='Walk'>Walk</option>
-				<option value='Bicycle'>Bicycle</option>
-				<option value='Rail'>Rail</option>
-				<option value='Bus'>Bus</option>
-			</select>
-		</div>
-		<h5> Select Retail Food Market: </h5>
-		<div id='foodmarket_menu'>
-			<select id='foodmarket' onChange = "changeMarket()">
-				<option value='Reset'>Food Retail Markets</option>
-				<option value='Grocery Store'>Grocery Stores</option>
-				<option value='Supermarket'>Supermarkets</option>
-				<option value='Hypermarket'>Hypermarket</option>
-				<option value='Other Markets'>Other Markets</option>
-				<option value='All Food Retail Markets'>All Food Retail Markets</option>
-			</select>
+		<div id = "menuContainer">
+			<h5> Select Transportation Mode Choice: </h5>
+				<div id='modechoice_menu'>
+					<select id='modechoice' onChange="changeTransportation()">
+						<option value='Reset'>Transportation Mode Choices</option>
+						<option value='Walk'>Walk</option>
+						<option value='Bicycle'>Bicycle</option>
+						<option value='Rail'>Rail</option>
+						<option value='Bus'>Bus</option>
+					</select>
+				</div>
+				<h5> Select Retail Food Market: </h5>
+				<div id='foodmarket_menu'>
+					<select id='foodmarket' onChange = "changeMarket()">
+						<option value='Reset'>Food Retail Markets</option>
+						<option value='Grocery Store'>Grocery Stores</option>
+						<option value='Supermarket'>Supermarkets</option>
+						<option value='Hypermarket'>Hypermarket</option>
+						<option value='Other Markets'>Other Markets</option>
+						<option value='All Food Retail Markets'>All Food Retail Markets</option>
+					</select>
+				</div>
 		</div>
 		<p>
 		<div id="mapid"></div>
 		<div id="mapid2"></div>
 		<div id="mapid3"></div>
     <div id="panel"></div>
-	</div>
 		<script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
 		<script type="text/javascript" src="lib/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="lib/d3.min.js"></script>

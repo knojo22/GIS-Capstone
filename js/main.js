@@ -4,7 +4,7 @@ var walkbufferStyle = {
 	"weight": 0.5,
 	"opacity": 1,
 	"color": "#000000",
-	"fillopacity": 10
+	"fillopacity": 5
 };
 
 var bikebufferStyle = {
@@ -12,7 +12,7 @@ var bikebufferStyle = {
 	"weight": 0.5,
 	"opacity": 1,
 	"color": "#000000",
-	"fillopacity": 10
+	"fillopacity": 5
 };
 
 var railbufferStyle = {
@@ -20,7 +20,7 @@ var railbufferStyle = {
 	"weight": 0.5,
 	"opacity": 1,
 	"color": "#000000",
-	"fillopacity": 10
+	"fillopacity": 5
 };
 
 var busbufferStyle = {
@@ -28,7 +28,7 @@ var busbufferStyle = {
 	"weight": 0.5,
 	"opacity": 1,
 	"color": "#000000",
-	"fillopacity": 10
+	"fillopacity": 5
 };
 
 function initialize(){
@@ -67,7 +67,7 @@ function initialize(){
 					"color": "#999",
 					"weight": 0.5,
 					"fillColor": getCTColorSeattle(feature.properties[attribute]),
-					"fillOpacity": 0.7
+					"fillOpacity": 0.5
 				};
 			}
 		}).addTo(map1);
@@ -80,7 +80,7 @@ function initialize(){
 					"color": "#999",
 					"weight": 0.5,
 					"fillColor": getCTColorChicago(feature.properties[attribute]),
-					"fillOpacity": 0.7
+					"fillOpacity": 0.5
 				};
 			}
 		}).addTo(map2);
@@ -93,7 +93,7 @@ function initialize(){
 					"color": "#999",
 					"weight": 0.5,
 					"fillColor": getCTColorBoston(feature.properties[attribute]),
-					"fillOpacity": 0.7
+					"fillOpacity": 0.5
 				};
 			}
 		}).addTo(map3);
@@ -132,9 +132,11 @@ function createMap(){
 			layers: baseSeattle
 		});
 
-		var baseSeattle = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-			          attribution: 'CARTO'
+		var baseSeattle = L.tileLayer('https:api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia25vam8yMiIsImEiOiJjaXl2cW5xa3owMDF0MndwbjliM3cxZjFoIn0.sMpJ7AM4zm5NSPAAXmIVBQ', {
+			          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 			        }).addTo(map1);
+
+
 
 		map2= L.map('mapid2', {
 			center: [41.8351,-87.6798],
@@ -142,8 +144,8 @@ function createMap(){
 			layers: baseChicago
 		});
 
-		var baseChicago = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-			          attribution: 'CARTO'
+		var baseChicago = L.tileLayer('https:api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia25vam8yMiIsImEiOiJjaXl2cW5xa3owMDF0MndwbjliM3cxZjFoIn0.sMpJ7AM4zm5NSPAAXmIVBQ', {
+			          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 			        }).addTo(map2);
 
 		map3= L.map('mapid3', {
@@ -152,8 +154,8 @@ function createMap(){
 			layers: baseBoston
 		});
 
-		var baseBoston = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-			          attribution: 'CARTO'
+		var baseBoston = L.tileLayer('https:api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia25vam8yMiIsImEiOiJjaXl2cW5xa3owMDF0MndwbjliM3cxZjFoIn0.sMpJ7AM4zm5NSPAAXmIVBQ', {
+			          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 			        }).addTo(map3);
 	};
 
@@ -162,16 +164,19 @@ function updateLayers(){
 	changeMarket();
 };
 
+// Defining a function that adds and/or removes layers based on transportation mode choice (walking, bicycling, bus, rail)
 function changeTransportation(){
 	var e = document.getElementById("modechoice");
 	var transportationmode = e.options[e.selectedIndex].value;
 
 	if (transportationmode == "Walk"){
 
+		// Adding the walking service areas that are within a 1/2 mile walk from retail food markets for the cities
 		map1.addLayer(WalkSeattle);
 		map2.addLayer(WalkChicago);
 		map3.addLayer(WalkBoston);
 
+		// Removing the service areas for the other transportation mode choices
 		map1.removeLayer(BikeSeattle);
 		map1.removeLayer(RailSeattle);
 		map1.removeLayer(BusSeattle);
@@ -184,49 +189,55 @@ function changeTransportation(){
 
 	} else if (transportationmode == "Bicycle"){
 
-		map1.addLayer(WalkSeattle);
+		// Adding the bicycle service areas that are within a 1/2 mile bicycle ride from retail food markets for the cities
 		map1.addLayer(BikeSeattle);
-		map2.addLayer(WalkChicago);
 		map2.addLayer(BikeChicago);
-		map3.addLayer(WalkBoston);
 		map3.addLayer(BikeBoston);
 
+		// Removing the service areas for the other transportation mode choices
+		map1.removeLayer(WalkSeattle);
 		map1.removeLayer(RailSeattle);
 		map1.removeLayer(BusSeattle);
+		map2.removeLayer(WalkChicago);
 		map2.removeLayer(RailChicago);
 		map2.removeLayer(BusChicago);
+		map3.removeLayer(WalkBoston);
 		map3.removeLayer(RailBoston);
 		map3.removeLayer(BusBoston);
 
 	} else if (transportationmode == "Rail"){
 
-		map1.addLayer(WalkSeattle);
+		// Adding the rail service areas that have stations within walking proximity of retail food markets for the cities
 		map1.addLayer(RailSeattle);
-		map2.addLayer(WalkChicago);
 		map2.addLayer(RailChicago);
-		map3.addLayer(WalkBoston);
 		map3.addLayer(RailBoston);
 
+		// Removing the service areas for the other transportation mode choices
+		map1.removeLayer(WalkSeattle);
 		map1.removeLayer(BikeSeattle);
 		map1.removeLayer(BusSeattle);
+		map2.removeLayer(WalkChicago);
 		map2.removeLayer(BikeChicago);
 		map2.removeLayer(BusChicago);
+		map3.removeLayer(WalkBoston);
 		map3.removeLayer(BikeBoston);
 		map3.removeLayer(BusBoston);
 
 	} else if (transportationmode == "Bus"){
 
-		map1.addLayer(WalkSeattle);
+		// Adding the bus service areas that have stops within walking proximity of retail food markets for the cities
 		map1.addLayer(BusSeattle);
-		map2.addLayer(WalkChicago);
 		map2.addLayer(BusChicago);
-		map3.addLayer(WalkBoston);
 		map3.addLayer(BusBoston);
 
+		// Removing the service areas for the other transportation mode choices
+		map1.removeLayer(WalkSeattle);
 		map1.removeLayer(BikeSeattle);
 		map1.removeLayer(RailSeattle);
+		map2.removeLayer(WalkChicago);
 		map2.removeLayer(BikeChicago);
 		map2.removeLayer(RailChicago);
+		map3.removeLayer(WalkBoston);
 		map3.removeLayer(BikeBoston);
 		map3.removeLayer(RailBoston);
 
@@ -248,7 +259,7 @@ function changeTransportation(){
 
 };
 
-// Defining a function that adds and/or removes layers from
+// Defining a function that adds and/or removes layers based on the type of retail food market
 function changeMarket(){
 	var e = document.getElementById("foodmarket");
 	var foodmarket = e.options[e.selectedIndex].value;
@@ -353,7 +364,8 @@ function changeMarket(){
 		map3.removeLayer(OMBoston);
 	};
 };
-// Creating a funcion for the colors based upon natural breaks and city
+
+// Creating a funcion to define the color range for the PCA Scores for each city based upon natural breaks (Jenks)
 function getCTColorSeattle(d){
 	return d > 3.08 ? "#d7301f":
 				 d > 1.30 ? "#fc8d59":
@@ -366,8 +378,6 @@ function getCTColorChicago(d){
 				 d > 1.91 ? "#fc8d59":
 				 d > -0.07 ? "#fdd49e":
 				 						"#fff7ec";
-
-
 };
 
 function getCTColorBoston(d){
@@ -375,7 +385,6 @@ function getCTColorBoston(d){
 				 d > 1.50  ? "#fc8d59":
 				 d > -0.37 ? "#fdd49e":
 				 						"#fff7ec";
-
 };
 
 // Creating a function to generate the retail food market locations that accept SNAP
@@ -523,6 +532,7 @@ function getSNAP(data, n){
 		return attributes;
 	};
 
+	// Creating a function that generates the circle markers for the retail food market type.
 	function pointToLayer(feature, latlng, attributes){
 			var attribute = attributes[0];
 			current = attribute;
@@ -530,13 +540,30 @@ function getSNAP(data, n){
 			var attrValue = feature.properties[attribute];
 				if (attrValue == "Grocery Store"){
 					var layer = L.circleMarker(latlng, {
-					  radius: 3,
+					  radius: 4,
 						color: "#000000",
 					  fillColor: "#7fcdbb",
 					  weight: 1,
 					  opacity: 1,
 					  fillOpacity: 1
 					});
+
+					var popupContent = "<p><b>Store: </b>" + feature.properties.Store_Name + "</p>" + "<p><b>Address: </b>" + feature.properties.Address + "</p><p><b> Market Type: </b>" + feature.properties[attribute] + "</p>";
+					layer.bindPopup(popupContent, {
+						offset: new L.Point(-100,20),
+						closeButton: false
+					});
+
+					// Creating event listeners to open the popup on hover
+					layer.on({
+						mouseover: function(){
+							this.openPopup();
+						},
+						mouseout: function(){
+							this.closePopup();
+						}
+					});
+
 					return layer;
 				} else if (attrValue == "Supermarket"){
 					var layer = L.circleMarker(latlng, {
@@ -547,6 +574,23 @@ function getSNAP(data, n){
 					  opacity: 1,
 					  fillOpacity: 1
 					});
+
+					var popupContent = "<p><b>Store: </b>" + feature.properties.Store_Name + "</p>" + "<p><b>Address: </b>" + feature.properties.Address + "</p><p><b> Market Type: </b>" + feature.properties[attribute] + "</p>";
+					layer.bindPopup(popupContent, {
+						offset: new L.Point(-100,20),
+						closeButton: false
+					});
+
+					// Creating event listeners to open the popup on hover
+					layer.on({
+						mouseover: function(){
+							this.openPopup();
+						},
+						mouseout: function(){
+							this.closePopup();
+						}
+					});
+
 					return layer;
 				} else if (attrValue == "Hypermarket"){
 					var layer = L.circleMarker(latlng, {
@@ -557,6 +601,23 @@ function getSNAP(data, n){
 					  opacity: 1,
 					  fillOpacity: 1
 					});
+
+					var popupContent = "<p><b>Store: </b>" + feature.properties.Store_Name + "</p>" + "<p><b>Address: </b>" + feature.properties.Address + "</p><p><b> Market Type: </b>" + feature.properties[attribute] + "</p>";
+					layer.bindPopup(popupContent, {
+						offset: new L.Point(-100,20),
+						closeButton: false
+					});
+
+					// Creating event listeners to open the popup on hover
+					layer.on({
+						mouseover: function(){
+							this.openPopup();
+						},
+						mouseout: function(){
+							this.closePopup();
+						}
+					});
+
 					return layer;
 				} else if (attrValue == "Other Market"){
 					var layer = L.circleMarker(latlng, {
@@ -567,6 +628,23 @@ function getSNAP(data, n){
 					  opacity: 1,
 					  fillOpacity: 1
 					});
+
+					var popupContent = "<p><b>Store: </b>" + feature.properties.Store_Name + "</p>" + "<p><b>Address: </b>" + feature.properties.Address + "</p><p><b> Market Type: </b>" + feature.properties[attribute] + "</p>";
+					layer.bindPopup(popupContent, {
+						offset: new L.Point(-100,20),
+						closeButton: false
+					});
+
+					// Creating event listeners to open the popup on hover
+					layer.on({
+						mouseover: function(){
+							this.openPopup();
+						},
+						mouseout: function(){
+							this.closePopup();
+						}
+					});
+
 					return layer;
 				};
 		};
@@ -716,7 +794,7 @@ function createLegend(map, n){
 };
 
 function createPanel(){
-	var content = "<p>The purpose of the interactive map is to compare food access areas by different mode choices (Walk, Bicycle, Rail and Bus) and different food markets (Grocery Stores, Supermarkets, Hypermarkets and Other Markets) for different cities across the United States.</p><p>The Principal Compoent Analysis (PCA) Scoring Range is comprised of five main factors that the USDA Food Environment Atlas uses to evaluate demographic characteristics for food accessibility (Population, Low-Income, Age (Children, Seniors) and No Household Vehicle Availability). The scores account for variation between the census tracts in the state, which is reflected in the different ranges per urban area. The higher the score is for the census tract, the greater the concern is for food accessibility in the area. </p><p> The walking and bicycling buffers are comprised of 1/2 mile service areas from the retail food market locations. The public transportation service areas (bus and rail) reflect the service areas that public transportation stospa and stations are within a 1/4 mile walking distance of retail food markets. The grocery store, supermarket and hypermarket locations are retail food markets that accept Supplemental Nutrition Assistance Program (SNAP) and are a part of the USDA Food Environment Atlas analysis for food deserts.";
+	var content = "<p>The purpose of the interactive map is to compare food access areas by different mode choices (Walk, Bicycle, Rail and Bus) and different food markets (Grocery Stores, Supermarkets, Hypermarkets and Other Markets) for different cities across the United States. This interactive looks at three cities: Seattle, WA (top-left), Chicago, IL (top-right) and Boston, MA (bottom-left).</p><p>The Principal Compoent Analysis (PCA) Scoring Range is comprised of five main factors that the USDA Food Environment Atlas uses to evaluate demographic characteristics for food accessibility (Population, Low-Income, Age (Children, Seniors) and No Household Vehicle Availability). The scores account for variation between the census tracts in the state, which is reflected in the different ranges per urban area. The higher the score is for the census tract, the greater the concern is for food accessibility in the area. </p><p> The walking and bicycling buffers are comprised of 1/2 mile service areas from the retail food market locations. The public transportation service areas (bus and rail) reflect the service areas that public transportation stops and stations are within a 1/4 mile walking distance of retail food markets. The grocery store, supermarket and hypermarket locations are retail food markets that participate in the Supplemental Nutrition Assistance Program (SNAP).";
 	$('#panel').append(content);
 };
 

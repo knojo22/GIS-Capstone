@@ -1,4 +1,5 @@
 
+//Creating styling for the walk service area
 var walkbufferStyle = {
 	"fillColor": "#807dba",
 	"weight": 0.5,
@@ -7,6 +8,7 @@ var walkbufferStyle = {
 	"fillopacity": 5
 };
 
+//Creating styling for the bicycle service area
 var bikebufferStyle = {
 	"fillColor": "#41b6c4",
 	"weight": 0.5,
@@ -15,6 +17,7 @@ var bikebufferStyle = {
 	"fillopacity": 5
 };
 
+//Creating styling for the rail service area
 var railbufferStyle = {
 	"fillColor": "#41ab5d",
 	"weight": 0.5,
@@ -23,6 +26,7 @@ var railbufferStyle = {
 	"fillopacity": 5
 };
 
+//Creating styling for the bus service area
 var busbufferStyle = {
 	"fillColor": "#e7298a",
 	"weight": 0.5,
@@ -125,6 +129,7 @@ function initialize(){
 		createMap();
 };
 
+// Creating the map with the base layers for each urban area.
 function createMap(){
 		map1= L.map('mapid', {
 			center: [47.6232,-122.3321],
@@ -135,8 +140,6 @@ function createMap(){
 		var baseSeattle = L.tileLayer('https:api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia25vam8yMiIsImEiOiJjaXl2cW5xa3owMDF0MndwbjliM3cxZjFoIn0.sMpJ7AM4zm5NSPAAXmIVBQ', {
 			          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
 			        }).addTo(map1);
-
-
 
 		map2= L.map('mapid2', {
 			center: [41.8351,-87.6798],
@@ -159,6 +162,7 @@ function createMap(){
 			        }).addTo(map3);
 	};
 
+// Creating a function to update the layers based upon the drop down menu selection from the user.
 function updateLayers(){
 	changeTransportation();
 	changeMarket();
@@ -793,6 +797,7 @@ function createLegend(map, n){
 	};
 };
 
+//Creating a function to append text into the panel for information on the interactive map.
 function createPanel(){
 	var content = "<p>The purpose of the interactive map is to compare food access areas by different mode choices (Walk, Bicycle, Rail and Bus) and different food markets (Grocery Stores, Supermarkets, Hypermarkets and Other Markets) for different cities across the United States. This interactive looks at three cities: Seattle, WA (top-left), Chicago, IL (top-right) and Boston, MA (bottom-left).</p><p>The Principal Compoent Analysis (PCA) Scoring Range is comprised of five main factors that the USDA Food Environment Atlas uses to evaluate demographic characteristics for food accessibility (Population, Low-Income, Age (Children, Seniors) and No Household Vehicle Availability). The scores account for variation between the census tracts in the state, which is reflected in the different ranges per urban area. The higher the score is for the census tract, the greater the concern is for food accessibility in the area. </p><p> The walking and bicycling buffers are comprised of 1/2 mile service areas from the retail food market locations. The public transportation service areas (bus and rail) reflect the service areas that public transportation stops and stations are within a 1/4 mile walking distance of retail food markets. The grocery store, supermarket and hypermarket locations are retail food markets that participate in the Supplemental Nutrition Assistance Program (SNAP).";
 	$('#panel').append(content);
